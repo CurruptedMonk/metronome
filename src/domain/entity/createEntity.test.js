@@ -1,5 +1,7 @@
 import createEntity from "./createEntity";
 import ENTITY_TYPE from "./ENTITY_TYPE";
+import RANGE_ENTITY_INTERFACE from "./range/RANGE_ENTITY_INTERFACE";
+import SETTABLE_ENTITY_INTERFACE from "./settable/SETTABLE_ENTITY_INTERFACE";
 
 describe("createEntity", () => {
     const initialValue = 1;
@@ -11,16 +13,14 @@ describe("createEntity", () => {
 
     it("returns settable entity", () => {
         const settableEntity = createEntity(ENTITY_TYPE.SETTABLE, initialValue, passedChecker);
-        const  settableEntityInterface= ["set", "subscribe", "unsubscribe"];
-        for(const method of settableEntityInterface) {
+        for(const method of SETTABLE_ENTITY_INTERFACE) {
             expect(typeof settableEntity[method] === "function").toBe(true);
         }
     });
 
     it("returns range entity", () => {
         const rangeEntity = createEntity(ENTITY_TYPE.RANGE, initialValue, passedChecker);
-        const rangeEntityInterface = ["set", "subscribe", "unsubscribe", "increaseBy", "decreaseBy"];
-        for(const method of rangeEntityInterface) {
+        for(const method of RANGE_ENTITY_INTERFACE) {
             expect(typeof rangeEntity[method] === "function").toBe(true);
         }
     });
