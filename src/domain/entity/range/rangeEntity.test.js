@@ -45,6 +45,30 @@ describe("rangeEntity", () => {
         })
     });
 
+    describe("check", () => {
+
+        it("checker returns true and current value not equals new value", () => {
+            const entity = rangeEntity(initialValue, passedChecker);
+            const newValue = initialValue + 1;
+
+            expect(entity.check(newValue)).toBe(true);
+        });
+
+        it("checker returns false and current value not equals new value", () => {
+            const entity = rangeEntity(initialValue, moreThenZeroChecker);
+            const newValue = 0;
+
+            expect(entity.check(newValue)).toBe(false);
+        });
+
+        it("checker returns true and current value equals new value", () => {
+            const entity = rangeEntity(initialValue, passedChecker);
+            const newValue = initialValue;
+
+            expect(entity.check(newValue)).toBe(false);
+        });
+    });
+
     describe("increaseBy", () => {
         let testEntity;
         let callback;
