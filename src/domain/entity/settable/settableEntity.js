@@ -7,13 +7,13 @@ const settableEntity = (initialValue, checker) => {
     let value = initialValue;
 
     const set = (newValue) => {
-        if(check(newValue)) {
+        if(checkValue(newValue)) {
             value = newValue;
             observer.notify(value);
         }
     };
 
-    const check = (newValue) => {
+    const checkValue = (newValue) => {
         return checker(newValue) && newValue !== value;
     };
 
@@ -31,7 +31,7 @@ const settableEntity = (initialValue, checker) => {
     return Object.freeze(
         {
             set,
-            check,
+            checkValue,
             subscribe,
             unsubscribe
         }

@@ -50,21 +50,21 @@ describe("settableEntity", () => {
             const entity = settableEntity(initialValue, passedChecker);
             const newValue = initialValue + 1;
 
-            expect(entity.check(newValue)).toBe(true);
+            expect(entity.checkValue(newValue)).toBe(true);
         });
 
         it("checker returns false and current value not equals new value", () => {
             const entity = settableEntity(initialValue, moreThenZeroChecker);
             const newValue = 0;
 
-            expect(entity.check(newValue)).toBe(false);
+            expect(entity.checkValue(newValue)).toBe(false);
         });
 
         it("checker returns true and current value equals new value", () => {
             const entity = settableEntity(initialValue, passedChecker);
             const newValue = initialValue;
 
-            expect(entity.check(newValue)).toBe(false);
+            expect(entity.checkValue(newValue)).toBe(false);
         });
     });
 
