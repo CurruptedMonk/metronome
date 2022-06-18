@@ -13,14 +13,22 @@ describe("createEntity", () => {
 
     it("returns settable entity", () => {
         const settableEntity = createEntity(ENTITY_TYPE.SETTABLE, initialValue, passedChecker);
-        for(const method of SETTABLE_ENTITY_INTERFACE) {
+
+        const entityMethodsCount = Object.getOwnPropertyNames(settableEntity).length;
+
+        expect(entityMethodsCount === SETTABLE_ENTITY_INTERFACE.length).toBe(true);
+        for (const method of SETTABLE_ENTITY_INTERFACE) {
             expect(typeof settableEntity[method] === "function").toBe(true);
         }
     });
 
     it("returns range entity", () => {
         const rangeEntity = createEntity(ENTITY_TYPE.RANGE, initialValue, passedChecker);
-        for(const method of RANGE_ENTITY_INTERFACE) {
+
+        const entityMethodsCount = Object.getOwnPropertyNames(rangeEntity).length;
+
+        expect(entityMethodsCount === RANGE_ENTITY_INTERFACE.length).toBe(true);
+        for (const method of RANGE_ENTITY_INTERFACE) {
             expect(typeof rangeEntity[method] === "function").toBe(true);
         }
     });

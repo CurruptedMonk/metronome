@@ -4,7 +4,8 @@ describe("rangeEntity", () => {
     const passedChecker = () => true;
     const failedChecker = () => false;
     const moreThenZeroChecker = (x) => x > 0;
-    const initialValue = 1;
+    const notMoreThenTwo = (x) => !(x >2);
+    const initialValue = 2;
     const step = 1;
 
     describe("check initial value", () => {
@@ -66,6 +67,38 @@ describe("rangeEntity", () => {
             const newValue = initialValue;
 
             expect(entity.check(newValue)).toBe(false);
+        });
+    });
+
+    describe("checkIncreaseStep", () => {
+        it("valid step was passed", () => {
+            const entity = rangeEntity(initialValue, passedChecker);
+            const step = 1;
+
+            expect(entity.checkIncreaseStep(step)).toBe(true);
+        });
+
+        it("invalid step was passed", () => {
+            const entity = rangeEntity(initialValue, notMoreThenTwo);
+            const step = 1;
+
+            expect(entity.checkIncreaseStep(step)).toBe(false);
+        });
+    });
+
+    describe("checkDecreaseStep", () => {
+        it("valid step was passed", () => {
+            const entity = rangeEntity(initialValue, passedChecker);
+            const step = 1;
+
+            expect(entity.checkDecreaseStep(step)).toBe(true);
+        });
+
+        it("invalid step was passed", () => {
+            const entity = rangeEntity(initialValue, moreThenZeroChecker);
+            const step = 2;
+
+            expect(entity.checkDecreaseStep(step)).toBe(false);
         });
     });
 

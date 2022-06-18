@@ -14,10 +14,20 @@ const rangeEntity = (initialValue, checker) => {
         set(value - step);
     };
 
+    const checkIncreaseStep = (step) => {
+        return check(value + step);
+    };
+
+    const checkDecreaseStep = (step) => {
+        return check(value - step);
+    };
+
     return Object.freeze(
         {
             set,
             check,
+            checkIncreaseStep,
+            checkDecreaseStep,
             increaseBy,
             decreaseBy,
             subscribe,
