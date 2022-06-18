@@ -4,7 +4,7 @@ import durationChecker from "./durationChecker";
 
 const createDuration = (initialValue, available) => {
     return createEntity(
-        ENTITY_TYPE.RANGE,
+        ENTITY_TYPE.SETTABLE,
         initialValue,
         durationChecker(available)
     );
