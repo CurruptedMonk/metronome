@@ -7,6 +7,9 @@ describe('createBpm', () => {
         const range = { from: 20, to: 240 };
         const bpm = createBpm(initialValue, range)
 
+        const bpmMethodsCount = Object.getOwnPropertyNames(bpm).length;
+
+        expect(bpmMethodsCount === RANGE_ENTITY_INTERFACE.length).toBe(true);
         for(const method of RANGE_ENTITY_INTERFACE) {
             expect(typeof bpm[method] === "function").toBe(true);
         }

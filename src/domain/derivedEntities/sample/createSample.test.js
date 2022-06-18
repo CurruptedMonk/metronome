@@ -5,10 +5,13 @@ describe('createSample', () => {
     it("returns sample with settable entity interface", () => {
         const initialValue = "stick";
         const available = ["stick", "drumstick"];
-        const duration = createSample(initialValue, available);
+        const sample = createSample(initialValue, available);
 
+        const sampleMethodsCount = Object.getOwnPropertyNames(sample).length;
+
+        expect(sampleMethodsCount === SETTABLE_ENTITY_INTERFACE.length).toBe(true);
         for(const method of SETTABLE_ENTITY_INTERFACE) {
-            expect(typeof duration[method] === "function").toBe(true);
+            expect(typeof sample[method] === "function").toBe(true);
         }
     });
 });
