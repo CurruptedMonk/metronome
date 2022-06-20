@@ -1,3 +1,5 @@
+const sampleList = ["claves", "drumstick", "bongo", "woodblock"];
+
 const METRONOME_OPTIONS = Object.freeze({
     BEAT: {
         initialValue: 4,
@@ -12,15 +14,17 @@ const METRONOME_OPTIONS = Object.freeze({
         available: [1, 2, 4, 8, 16],
     },
     SAMPLE: {
+        LIST: sampleList,
         UPBEAT: {
-            initialValue: "claves",
-            available: ["claves", "drumstick", "bongo", "woodblock"],
+            initialValue: sampleList[0],
+            available: sampleList,
         },
         DOWNBEAT: {
-            initialValue:"drumstick",
-            available: ["claves", "drumstick", "bongo", "woodblock"],
+            initialValue:sampleList[1],
+            available: sampleList,
         }
     }
 });
+
 
 export default METRONOME_OPTIONS;
