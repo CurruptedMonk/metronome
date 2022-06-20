@@ -6,7 +6,7 @@ const METRONOME_OPTIONS = Object.freeze({
         range: {from: 1, to: 12}
     },
     BPM: {
-        initialValue: 4,
+        initialValue: 120,
         range: {from: 20, to: 240}
     },
     DURATION: {
