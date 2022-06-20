@@ -1,6 +1,6 @@
 import createBpm from "../domain/derivedEntities/bpm/createBpm";
 
-const bpm = (options) => {
+const appBpm = (options) => {
     const bpm = createBpm(options.initialValue, options.range);
 
     const set = (value) => {
@@ -38,4 +38,4 @@ const bpm = (options) => {
     });
 };
 
-export default bpm;
+export default appBpm;

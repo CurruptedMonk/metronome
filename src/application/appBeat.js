@@ -1,6 +1,6 @@
 import createBeat from "../domain/derivedEntities/beat/createBeat";
 
-const beat = (options) => {
+const appBeat = (options) => {
     const beat = createBeat(options.initialValue, options.range);
 
     const set = (value) => {
@@ -38,4 +38,4 @@ const beat = (options) => {
     });
 };
 
-export default  beat;
+export default  appBeat;

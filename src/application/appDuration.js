@@ -1,6 +1,6 @@
 import createDuration from "../domain/derivedEntities/duration/createDuration";
 
-const duration = (options) => {
+const appDuration = (options) => {
     const duration = createDuration(options.initialValue, options.available);
 
     const set = (value) => {
@@ -24,4 +24,4 @@ const duration = (options) => {
     });
 };
 
-export default duration;
+export default appDuration;

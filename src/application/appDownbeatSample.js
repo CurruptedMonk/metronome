@@ -1,6 +1,6 @@
 import createSample from "../domain/derivedEntities/sample/createSample";
 
-const upbeatSample = (options) => {
+const appDownbeatSample = (options) => {
     const sample = createSample(options.initialValue, options.available);
 
     const set = (value) => {
@@ -24,4 +24,4 @@ const upbeatSample = (options) => {
     });
 };
 
-export default upbeatSample;
+export default appDownbeatSample;

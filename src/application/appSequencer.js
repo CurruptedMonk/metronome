@@ -6,7 +6,7 @@ const SUBSCRIBER_KEY = Object.freeze({
     DOWNBEAT_SAMPLE: Symbol()
 });
 
-const sequencer = (sequencer, {beat, bpm, duration, upbeatSample, downbeatSample}) => {
+const appSequencer = (sequencer, {beat, bpm, duration, upbeatSample, downbeatSample}) => {
     beat.subscribe(SUBSCRIBER_KEY.BEAT, sequencer.setBeat, true);
     bpm.subscribe(SUBSCRIBER_KEY.BPM, sequencer.setBpm, true);
     duration.subscribe(SUBSCRIBER_KEY.DURATION, sequencer.setDuration, true);
@@ -37,4 +37,4 @@ const sequencer = (sequencer, {beat, bpm, duration, upbeatSample, downbeatSample
     });
 };
 
-export default sequencer;
+export default appSequencer;
