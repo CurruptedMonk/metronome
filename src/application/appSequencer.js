@@ -29,11 +29,16 @@ const appSequencer = (sequencer, {beat, bpm, duration, upbeatSample, downbeatSam
         sequencer.subscribeToState(key, getUpdateCallback);
     };
 
+    const unsubscribeFromState = (key) => {
+        sequencer.unsubscribeFromState(key);
+    };
+
     return Object.freeze({
         loadSamples,
         play,
         stop,
-        subscribeToState
+        subscribeToState,
+        unsubscribeFromState
     });
 };
 

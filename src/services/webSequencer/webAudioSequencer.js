@@ -65,6 +65,10 @@ const webAudioSequencer = (audioContext, sampleList) => {
         observer.subscribe(key, getUpdateCallback);
     };
 
+    const unsubscribeFromState = (key) => {
+        observer.unsubscribe(key);
+    };
+
     return Object.freeze({
         loadSamples,
         play,
@@ -74,7 +78,8 @@ const webAudioSequencer = (audioContext, sampleList) => {
         setDuration,
         setUpbeatSample,
         setDownbeatSample,
-        subscribeToState
+        subscribeToState,
+        unsubscribeFromState
     });
 };
 
