@@ -5,17 +5,16 @@ import appUpbeatSample from "./appUpbeatSample";
 import appDownbeatSample from "./appDownbeatSample";
 import appSequencer from "./appSequencer";
 import webAudioSequencer from "../services/webSequencer/webAudioSequencer";
-import METRONOME_OPTIONS from "../METRONOME_OPTIONS";
 
-const appController = () => {
-    const beat = appBeat(METRONOME_OPTIONS.BEAT);
-    const bpm = appBpm(METRONOME_OPTIONS.BPM);
-    const duration =  appDuration(METRONOME_OPTIONS.DURATION);
-    const upbeatSample =  appUpbeatSample(METRONOME_OPTIONS.SAMPLE.UPBEAT);
-    const downbeatSample = appDownbeatSample(METRONOME_OPTIONS.SAMPLE.DOWNBEAT);
+const appController = (metronomeOptions) => {
+    const beat = appBeat(metronomeOptions.beat);
+    const bpm = appBpm(metronomeOptions.bpm);
+    const duration =  appDuration(metronomeOptions.duration);
+    const upbeatSample =  appUpbeatSample(metronomeOptions.sample.upbeat);
+    const downbeatSample = appDownbeatSample(metronomeOptions.sample.downbeat);
 
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const sequencer = appSequencer(webAudioSequencer(audioContext, METRONOME_OPTIONS.SAMPLE.LIST), {
+    const sequencer = appSequencer(webAudioSequencer(audioContext, metronomeOptions.sample.list), {
         beat, bpm, duration, upbeatSample, downbeatSample
     });
 
