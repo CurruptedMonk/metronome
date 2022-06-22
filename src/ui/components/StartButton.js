@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from "react";
-import {PlayCircleFilled} from "@ant-design/icons";
+import {PlayCircleFilled, PauseCircleFilled} from "@ant-design/icons";
 import {Button} from "antd";
 
 const StartButton = ({controller}) => {
@@ -32,7 +32,7 @@ const StartButton = ({controller}) => {
                 onClick={controller.sequencer.stop}
                 type="primary"
                 size={"large"}
-                icon={<PlayCircleFilled />}
+                icon={<PauseCircleFilled />}
             >
                 Stop
             </Button>
