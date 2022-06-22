@@ -1,1 +1,10 @@
+@import '~antd/dist/antd.css';
+
+h1.ant-typography {
+    color:white;
+}
+h1.ant-typography .subtitle {
+    color: grey;
+    font-size: 1.2rem;
+}
 
