@@ -1,30 +1,29 @@
 const sampleList = ["claves", "drumstick", "bongo", "woodblock"];
 
-const METRONOME_OPTIONS = Object.freeze({
-    BEAT: {
+const metronomeOptions = Object.freeze({
+    beat: {
         initialValue: 4,
         range: {from: 1, to: 12}
     },
-    BPM: {
+    bpm: {
         initialValue: 120,
         range: {from: 20, to: 240}
     },
-    DURATION: {
+    duration: {
         initialValue: 4,
         available: [1, 2, 4, 8, 16],
     },
-    SAMPLE: {
-        LIST: sampleList,
-        UPBEAT: {
+    sample: {
+        list: sampleList,
+        upbeat: {
             initialValue: sampleList[0],
             available: sampleList,
         },
-        DOWNBEAT: {
+        downbeat: {
             initialValue:sampleList[1],
             available: sampleList,
         }
     }
 });
 
-
-export default METRONOME_OPTIONS;
+export default metronomeOptions;
