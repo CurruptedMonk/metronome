@@ -5,6 +5,7 @@ import {Content, Header} from "antd/es/layout/layout";
 import Bpm from "./ui/components/Bpm";
 import ControlButtons from "./ui/components/ControlButtons";
 import Beat from "./ui/components/Beat";
+import Duration from "./ui/components/Duration";
 const {Title} = Typography;
 
 function App({controller, options}) {
@@ -26,6 +27,7 @@ function App({controller, options}) {
             <Bpm controller={controller} bpmOptions={options.bpm} />
             <ControlButtons controller={controller}/>
             <Beat controller={controller}/>
+            <Duration controller={controller} durationOptions={options.duration}/>
           </Content>
       </Layout>
     </div>
