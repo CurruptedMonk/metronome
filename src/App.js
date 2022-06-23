@@ -1,9 +1,9 @@
 import './App.css';
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {Layout, Typography} from "antd";
 import {Content, Header} from "antd/es/layout/layout";
 import Bpm from "./ui/components/Bpm";
-import StartButton from "./ui/components/StartButton";
+import ControlButtons from "./ui/components/ControlButtons";
 const {Title} = Typography;
 
 function App({controller, options}) {
@@ -22,8 +22,8 @@ function App({controller, options}) {
               </div>
           </Header>
           <Content style={{width:"50%", margin:"auto"}}>
-            <Bpm controller={controller} bpmOptions={options.bpm}/>
-              <StartButton controller={controller}/>
+            <Bpm controller={controller} bpmOptions={options.bpm} />
+            <ControlButtons controller={controller}/>
           </Content>
       </Layout>
     </div>
