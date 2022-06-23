@@ -6,6 +6,8 @@ import Bpm from "./ui/components/Bpm";
 import ControlButtons from "./ui/components/ControlButtons";
 import Beat from "./ui/components/Beat";
 import Duration from "./ui/components/Duration";
+import Sample from "./ui/components/Sample";
+import Sounds from "./ui/components/Sounds";
 const {Title} = Typography;
 
 function App({controller, options}) {
@@ -28,6 +30,7 @@ function App({controller, options}) {
             <ControlButtons controller={controller}/>
             <Beat controller={controller}/>
             <Duration controller={controller} durationOptions={options.duration}/>
+            <Sounds controller={controller} sampleOptions={options.sample}/>
           </Content>
       </Layout>
     </div>
