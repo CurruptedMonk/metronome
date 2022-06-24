@@ -22,7 +22,10 @@ const appController = (metronomeOptions) => {
 
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     const speechRecognitionList = new (window.SpeechGrammarList || window.webkitSpeechGrammarList)();
-    const voiceControl = appVoiceControl(webSpeechRecognition(recognition, speechRecognitionList));
+    const voiceControl = appVoiceControl(
+        webSpeechRecognition(recognition, speechRecognitionList),
+    {sequencer, bpm}
+    );
 
     return Object.freeze({
         beat,

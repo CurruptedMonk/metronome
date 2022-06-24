@@ -1,4 +1,9 @@
-const appVoiceControl = (speechRecognition) => {
+import commandExecutor from "../services/webSpeechRecognition/commandExecutor";
+
+const appVoiceControl = (speechRecognition, {sequencer, bpm}) => {
+    const executor = commandExecutor(sequencer, bpm, speechRecognition.turnOff);
+    const executorSubscriberKey = Symbol();
+    speechRecognition.subscribeToResult(executorSubscriberKey, executor.execute);
 
     const toggle = () => {
         speechRecognition.toggle();
