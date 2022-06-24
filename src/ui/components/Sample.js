@@ -12,7 +12,7 @@ const Sample = ({name, sampleController, sampleOptions}) => {
         return () => {
             sampleController.unsubscribe(subscriberKey);
         };
-    });
+    }, [sampleController]);
 
     return (
         <div style={{display:"flex",justifyContent: "center", textAlign: "center"}}>

@@ -6,7 +6,6 @@ import Bpm from "./ui/components/Bpm";
 import ControlButtons from "./ui/components/ControlButtons";
 import Beat from "./ui/components/Beat";
 import Duration from "./ui/components/Duration";
-import Sample from "./ui/components/Sample";
 import Sounds from "./ui/components/Sounds";
 const {Title} = Typography;
 
