@@ -5,6 +5,8 @@ import appUpbeatSample from "./appUpbeatSample";
 import appDownbeatSample from "./appDownbeatSample";
 import appSequencer from "./appSequencer";
 import webAudioSequencer from "../services/webSequencer/webAudioSequencer";
+import appVoiceControl from "./appVoiceControl";
+import webSpeechRecognition from "../services/webSpeechRecognition/webSpeechRecognition";
 
 const appController = (metronomeOptions) => {
     const beat = appBeat(metronomeOptions.beat);
@@ -18,13 +20,18 @@ const appController = (metronomeOptions) => {
         beat, bpm, duration, upbeatSample, downbeatSample
     });
 
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    const speechRecognitionList = new (window.SpeechGrammarList || window.webkitSpeechGrammarList)();
+    const voiceControl = appVoiceControl(webSpeechRecognition(recognition, speechRecognitionList));
+
     return Object.freeze({
         beat,
         bpm,
         duration,
         upbeatSample,
         downbeatSample,
-        sequencer
+        sequencer,
+        voiceControl
     });
 };
 
