@@ -1,9 +1,18 @@
 import createSubscriberKeys from "./createSubscriberKeys";
+import debounce from "../lib/debounce";
 
 const appStorage = (storage, entities) => {
+    const DEBOUNCE_TIMEOUT_MS = 600;
     const subscriberKeys = createSubscriberKeys(entities);
+
     for (const [name, entity] of Object.entries(entities)) {
-        entity.subscribe(subscriberKeys[name], storage.save.bind(null, name));
+        entity.subscribe(
+            subscriberKeys[name],
+            debounce(
+                storage.save.bind(null, name),
+                DEBOUNCE_TIMEOUT_MS
+            )
+        );
     }
 
     const downloadSettings = async () => {
