@@ -40,25 +40,29 @@ const webAudioSequencer = (audioContext, sampleList) => {
         return audioContext.state === "running";
     };
 
-    const setBeat = (value) => {
-        sequence = createSequence(value);
-        beatIterator = createSequenceIterator(sequence);
+    const set = (entityName, value) => {
+        const setFn = setters[entityName];
+        if(!setFn) throw new Error("Invalid entity name")
+        setFn(value);
     };
 
-    const setBpm = (value) => {
-        bpm = value;
-    };
-
-    const setDuration = (value) => {
-        duration = value;
-    };
-
-    const setUpbeatSample = (value) => {
-        upbeatSample = value;
-    };
-
-    const setDownbeatSample = (value) => {
-        downBeatSample = value;
+    const setters = {
+        beat: (value) => {
+            sequence = createSequence(value);
+            beatIterator = createSequenceIterator(sequence);
+        },
+        bpm: (value) => {
+            bpm = value;
+        },
+        duration: (value) => {
+            duration = value;
+        },
+        upbeatSample: (value) => {
+            upbeatSample = value;
+        },
+        downbeatSample: (value) => {
+            downBeatSample = value;
+        }
     };
 
     const subscribeToState = (key, getUpdateCallback) => {
@@ -73,11 +77,7 @@ const webAudioSequencer = (audioContext, sampleList) => {
         loadSamples,
         play,
         stop,
-        setBeat,
-        setBpm,
-        setDuration,
-        setUpbeatSample,
-        setDownbeatSample,
+        set,
         subscribeToState,
         unsubscribeFromState
     });
