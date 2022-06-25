@@ -7,6 +7,9 @@ import appSequencer from "./appSequencer";
 import webAudioSequencer from "../services/webSequencer/webAudioSequencer";
 import appVoiceControl from "./appVoiceControl";
 import webSpeechRecognition from "../services/webSpeechRecognition/webSpeechRecognition";
+import webStorage from "../services/storage/webStorage";
+import localStorageAdapter from "../services/storage/localStorageAdapter";
+import appStorage from "./appStorage";
 
 const appController = (metronomeOptions) => {
     const beat = appBeat(metronomeOptions.beat);
@@ -27,6 +30,13 @@ const appController = (metronomeOptions) => {
     {sequencer, bpm}
     );
 
+    const storage = appStorage(
+        webStorage(localStorageAdapter()),
+        {
+            beat, bpm, duration, upbeatSample, downbeatSample
+        }
+    );
+
     return Object.freeze({
         beat,
         bpm,
@@ -34,7 +44,8 @@ const appController = (metronomeOptions) => {
         upbeatSample,
         downbeatSample,
         sequencer,
-        voiceControl
+        voiceControl,
+        storage
     });
 };
 
