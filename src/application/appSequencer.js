@@ -1,17 +1,10 @@
-const SUBSCRIBER_KEY = Object.freeze({
-    BEAT: Symbol(),
-    BPM: Symbol(),
-    DURATION: Symbol(),
-    UPBEAT_SAMPLE: Symbol(),
-    DOWNBEAT_SAMPLE: Symbol()
-});
+import createSubscriberKeys from "./createSubscriberKeys";
 
-const appSequencer = (sequencer, {beat, bpm, duration, upbeatSample, downbeatSample}) => {
-    beat.subscribe(SUBSCRIBER_KEY.BEAT, sequencer.setBeat, true);
-    bpm.subscribe(SUBSCRIBER_KEY.BPM, sequencer.setBpm, true);
-    duration.subscribe(SUBSCRIBER_KEY.DURATION, sequencer.setDuration, true);
-    upbeatSample.subscribe(SUBSCRIBER_KEY.UPBEAT_SAMPLE, sequencer.setUpbeatSample, true);
-    downbeatSample.subscribe(SUBSCRIBER_KEY.DOWNBEAT_SAMPLE, sequencer.setDownbeatSample, true);
+const appSequencer = (sequencer, entities) => {
+    const subscriberKeys = createSubscriberKeys(entities);
+    for (const [name, entity] of Object.entries(entities)) {
+        entity.subscribe(subscriberKeys[name], sequencer.set.bind(null, name), true);
+    }
 
     const loadSamples = async () => {
         await sequencer.loadSamples();
