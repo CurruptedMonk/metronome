@@ -1,4 +1,4 @@
-const webLocalStorage = () => {
+const localStorageAdapter = () => {
     const set = (key, value) => {
         localStorage.setItem(key, JSON.stringify(value));
     };
@@ -13,4 +13,4 @@ const webLocalStorage = () => {
     });
 };
 
-export default webLocalStorage;
+export default localStorageAdapter;
