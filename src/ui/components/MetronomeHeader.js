@@ -20,7 +20,7 @@ const MetronomeHeader = ({entities}) => {
                 entity.unsubscribe(subscriberKeys[name]);
             }
         }
-    }, [entities, setState]);
+    }, [entities]);
 
     return (
         <div style={{display:"flex",justifyContent: "center", textAlign: "center", flexDirection: "column", fontSize:"2rem"}}>
