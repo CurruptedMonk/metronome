@@ -19,12 +19,6 @@ const Bpm = ({controller, bpmOptions}) => {
 
     return (
         <div >
-            <div style={{display:"flex",justifyContent: "center", textAlign: "center", flexDirection: "column", fontSize:"2rem"}}>
-                <div>
-                    <span>BPM</span>
-                </div>
-                <div>{bpm}</div>
-            </div>
             <div style={{display: "flex", justifyContent: "center", textAlign: "center"}}>
                 <Button  size={"large"} type="primary" shape="circle"  icon={<MinusOutlined/>} onMouseDown={(e) =>
                     onHeld(

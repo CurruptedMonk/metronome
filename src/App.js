@@ -7,6 +7,7 @@ import ControlButtons from "./ui/components/ControlButtons";
 import Beat from "./ui/components/Beat";
 import Duration from "./ui/components/Duration";
 import Sounds from "./ui/components/Sounds";
+import MetronomeHeader from "./ui/components/MetronomeHeader";
 const {Title} = Typography;
 
 function App({controller, options}) {
@@ -17,6 +18,7 @@ function App({controller, options}) {
         };
         init();
     }, [controller]);
+
   return (
     <div className="App">
       <Layout>
@@ -26,6 +28,13 @@ function App({controller, options}) {
               </div>
           </Header>
           <Content style={{width:"50%", margin:"auto"}}>
+            <MetronomeHeader
+                entities={{
+                    bpm: controller.bpm,
+                    beat: controller.beat,
+                    duration: controller.duration
+                }}
+            />
             <Bpm controller={controller} bpmOptions={options.bpm} />
             <ControlButtons controller={controller}/>
             <Beat controller={controller}/>
