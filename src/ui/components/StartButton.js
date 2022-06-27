@@ -1,7 +1,8 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {useState, useRef} from "react";
 import {PlayCircleFilled, PauseCircleFilled} from "@ant-design/icons";
 import {Button} from "antd";
 import useSubscribeEffect from "../hooks/useSubscribeEffect";
+import useWindowListener from "../hooks/useWindowListener";
 
 const StartButton = ({controller}) => {
     const [isRunning, setIsRunning] = useState(false);
@@ -16,15 +17,7 @@ const StartButton = ({controller}) => {
     };
 
     useSubscribeEffect(controller.sequencer, setIsRunning, false);
-
-    useEffect(() => {
-        window.addEventListener("keyup", keyboardHandler);
-
-        return () => {
-            window.removeEventListener("keyup", keyboardHandler);
-        }
-    }, []);
-
+    useWindowListener("keyup", keyboardHandler);
 
     const currentButton = isRunning
         ? (

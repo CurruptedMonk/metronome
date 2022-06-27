@@ -1,6 +1,7 @@
-import React, {useEffect, useRef} from "react";
+import React, {useRef} from "react";
 import {Button} from "antd";
 import onTap from "../handlers/onTap";
+import useWindowListener from "../hooks/useWindowListener";
 
 const TapButton = ({controller}) => {
     const currentButtonRef = useRef(null);
@@ -10,13 +11,7 @@ const TapButton = ({controller}) => {
         }
     };
 
-    useEffect(() => {
-        window.addEventListener("keydown", keyboardHandler);
-
-        return () => {
-            window.removeEventListener("keydown", keyboardHandler);
-        };
-    }, [controller]);
+    useWindowListener("keydown", keyboardHandler);
 
     return (
         <Button
