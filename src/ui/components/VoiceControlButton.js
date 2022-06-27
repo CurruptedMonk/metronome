@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Button} from "antd";
 import {PoweroffOutlined} from "@ant-design/icons";
+import useSubscribeEffect from "../hooks/useSubscribeEffect";
 
 const VoiceControlButton = ({controller}) => {
     const [isOn, setIsOn] = useState(false);
@@ -12,13 +13,12 @@ const VoiceControlButton = ({controller}) => {
         }
     };
 
+    useSubscribeEffect(controller.voiceControl, setIsOn, false);
+
     useEffect(() => {
-        const subscriberKey = Symbol();
-        controller.voiceControl.subscribeToState(subscriberKey, setIsOn);
         window.addEventListener("keyup", keyboardHandler);
 
         return () => {
-            controller.voiceControl.unsubscribeFromState(subscriberKey);
             window.removeEventListener("keyup", keyboardHandler);
         };
     }, [controller]);

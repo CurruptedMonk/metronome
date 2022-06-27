@@ -1,17 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Radio} from 'antd';
+import useSubscribeEffect from "../hooks/useSubscribeEffect";
 
 const Duration = ({controller, durationOptions}) => {
     const [duration, setDuration] = useState(0);
 
-    useEffect(() => {
-        const subscriberKey = Symbol();
-        controller.duration.subscribe(subscriberKey, setDuration, true);
-
-        return () => {
-            controller.duration.unsubscribe(subscriberKey);
-        };
-    }, [controller]);
+    useSubscribeEffect(controller.duration, setDuration, true);
 
     return (
         <div style={{display:"flex",justifyContent: "center", textAlign: "center"}}>

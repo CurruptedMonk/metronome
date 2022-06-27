@@ -1,18 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Select} from "antd";
+import useSubscribeEffect from "../hooks/useSubscribeEffect";
 const {Option} = Select;
 
 const Sample = ({name, sampleController, sampleOptions}) => {
     const [sound, setSound] = useState("");
 
-    useEffect(() => {
-        const subscriberKey = Symbol();
-        sampleController.subscribe(subscriberKey, setSound, true);
-
-        return () => {
-            sampleController.unsubscribe(subscriberKey);
-        };
-    }, [sampleController]);
+    useSubscribeEffect(sampleController, setSound, true);
 
     return (
         <div style={{display:"flex",justifyContent: "center", textAlign: "center"}}>

@@ -1,21 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Button} from "antd";
 import {MinusOutlined, PlusOutlined} from "@ant-design/icons";
 import onHeld from "../handlers/onHeld";
+import useSubscribeEffect from "../hooks/useSubscribeEffect";
 
 const Beat = ({controller}) => {
     const STEP = 1;
     const HELD_DELAY = 100;
     const [beat, setBeat] = useState(0);
 
-    useEffect(() => {
-        const subscriberKey = Symbol();
-        controller.beat.subscribe(subscriberKey, setBeat, true);
-
-        return () => {
-            controller.beat.unsubscribe(subscriberKey);
-        };
-    }, [controller]);
+    useSubscribeEffect(controller.beat, setBeat, true);
 
     return (
         <div style={{display: "flex", justifyContent: "space-around", textAlign: "center"}}>
