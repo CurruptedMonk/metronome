@@ -9,18 +9,18 @@ const appVoiceControl = (speechRecognition, {sequencer, bpm}) => {
         speechRecognition.toggle();
     };
 
-    const subscribeToState = (key, getUpdateCallback) => {
+    const subscribe = (key, getUpdateCallback) => {
         speechRecognition.subscribeToState(key, getUpdateCallback);
     };
 
-    const unsubscribeFromState = (key) => {
+    const unsubscribe = (key) => {
         speechRecognition.unsubscribeFromState(key);
     };
 
     return Object.freeze({
         toggle,
-        subscribeToState,
-        unsubscribeFromState,
+        subscribe,
+        unsubscribe,
     });
 };
 

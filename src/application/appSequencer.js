@@ -18,11 +18,11 @@ const appSequencer = (sequencer, entities) => {
         sequencer.stop();
     };
 
-    const subscribeToState = (key, getUpdateCallback) => {
+    const subscribe = (key, getUpdateCallback) => {
         sequencer.subscribeToState(key, getUpdateCallback);
     };
 
-    const unsubscribeFromState = (key) => {
+    const unsubscribe = (key) => {
         sequencer.unsubscribeFromState(key);
     };
 
@@ -30,8 +30,8 @@ const appSequencer = (sequencer, entities) => {
         loadSamples,
         play,
         stop,
-        subscribeToState,
-        unsubscribeFromState
+        subscribe,
+        unsubscribe
     });
 };
 
