@@ -8,7 +8,7 @@ const ControlButtons = ({controller}) => {
         <div style={{display:"flex", alignItems: "center", justifyContent: "center"}}>
             <StartButton controller={controller.sequencer} keyBoardKeys={[" ", "spacebar"]}/>
             <VoiceControlButton controller={controller}/>
-            <TapButton controller={controller}/>
+            <TapButton controller={controller.bpm} keyBoardKeys={["t"]}/>
         </div>
     );
 };
