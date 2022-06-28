@@ -3,24 +3,20 @@ import {Button} from "antd";
 import {PoweroffOutlined} from "@ant-design/icons";
 import useSubscribeEffect from "../hooks/useSubscribeEffect";
 import useWindowListener from "../hooks/useWindowListener";
+import onKeyBoard from "../handlers/onKeyboard";
 
-const VoiceControlButton = ({controller}) => {
+const VoiceControlButton = ({controller, keyBoardKeys}) => {
     const [isOn, setIsOn] = useState(false);
-    const currentButtonRef = useRef(null);
+    const buttonRef = useRef(null);
+    const buttonCallback = () => buttonRef.current.click();
 
-    const keyboardHandler = (e) => {
-        if (e.key.toLowerCase() === "m") {
-            currentButtonRef.current.click();
-        }
-    };
-
-    useSubscribeEffect(controller.voiceControl, setIsOn, false);
-    useWindowListener("keyup", keyboardHandler);
+    useSubscribeEffect(controller, setIsOn, false);
+    useWindowListener("keyup", onKeyBoard.bind(null, buttonCallback, keyBoardKeys));
 
     return (
         <Button
-            ref={currentButtonRef}
-            onClick={controller.voiceControl.toggle}
+            ref={buttonRef}
+            onClick={controller.toggle}
             type={isOn ?  "primary" : "default"}
             size={"large"}
             icon={<PoweroffOutlined />}
