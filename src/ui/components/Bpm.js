@@ -1,15 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import {Button, Slider} from "antd";
 import {PlusOutlined, MinusOutlined} from "@ant-design/icons";
 import onHeld from "../handlers/onHeld";
-import useSubscribeEffect from "../hooks/useSubscribeEffect";
+import useSubscribe from "../hooks/useSubscribe";
 
 const Bpm = ({controller, bpmOptions}) => {
     const STEP = 1;
     const HELD_DELAY = 35;
-    const [bpm, setBpm] = useState(0);
 
-    useSubscribeEffect(controller.bpm, setBpm, true);
+    const [bpm] = useSubscribe(controller.bpm);
 
     return (
         <div >
