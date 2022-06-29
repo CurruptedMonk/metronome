@@ -1,31 +1,17 @@
-import React, {useEffect} from "react";
-import createSubscriberKeys from "../../application/createSubscriberKeys";
-import useEntityReducer from "../hooks/useEntityReducer";
+import React from "react";
+import SubscribedValue from "./SubscribedValue.js";
 
-const MetronomeHeader = ({entities}) => {
-    const [state, setState] = useEntityReducer(entities);
-
-    useEffect(() => {
-        const subscriberKeys = createSubscriberKeys(entities);
-        for(const [name, entity] of Object.entries(entities)) {
-            entity.subscribe(
-                subscriberKeys[name],
-                setState.bind(null, name),
-                true
-            );
-        }
-
-        return () => {
-            for (const [name, entity] of Object.entries(entities)) {
-                entity.unsubscribe(subscriberKeys[name]);
-            }
-        }
-    }, [entities]);
+const MetronomeHeader = ({ entities }) => {
+    const BpmValue = <SubscribedValue controller={entities.bpm} />;
+    const BeatValue = <SubscribedValue controller={entities.beat} />;
+    const DurationValue = <SubscribedValue controller={entities.duration} />;
 
     return (
         <div style={{display:"flex",justifyContent: "center", textAlign: "center", flexDirection: "column", fontSize:"2rem"}}>
-            <div>{state.bpm} BPM</div>
-            <div>{state.beat}/{state.duration}</div>
+            <div>{BpmValue}&nbsp;BPM</div>
+            <div>
+                {BeatValue}/{DurationValue}
+            </div>
         </div>
     );
 };

@@ -2,14 +2,18 @@ import React from "react";
 import {Button} from "antd";
 import {MinusOutlined, PlusOutlined} from "@ant-design/icons";
 import onHeld from "../handlers/onHeld";
-import useSubscribe from "../hooks/useSubscribe";
+import SubscribedValue from "./SubscribedValue.js";
 
 const Beat = ({controller}) => {
     const STEP = 1;
     const HELD_DELAY = 100;
 
-    const [beat]  = useSubscribe(controller.beat);
-
+    const BeatValue = (
+        <SubscribedValue
+            controller={controller.beat}
+            style={{ fontSize: "1.2rem", margin: "0 .5rem" }}
+        />
+    );
     return (
         <div style={{display: "flex", justifyContent: "space-around", textAlign: "center"}}>
             <span style={{fontSize: "1.2rem", margin: "0 .5rem"}}>Beats</span>
@@ -21,7 +25,7 @@ const Beat = ({controller}) => {
                         HELD_DELAY
                     )
                 }/>
-                <span style={{fontSize: "1.2rem", margin: "0 .5rem"}}>{beat}</span>
+                {BeatValue}
                 <Button  size={"default"} type="primary" shape="circle"  icon={<PlusOutlined/>} onMouseDown={(e) =>
                     onHeld(
                         e,
