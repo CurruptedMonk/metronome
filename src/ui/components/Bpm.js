@@ -1,8 +1,8 @@
 import React from "react";
-import {Button, Slider} from "antd";
+import {Slider} from "antd";
 import {PlusOutlined, MinusOutlined} from "@ant-design/icons";
-import onHeld from "../handlers/onHeld";
 import useSubscribe from "../hooks/useSubscribe";
+import HeldButton from "./HeldButton";
 
 const Bpm = ({controller, bpmOptions}) => {
     const STEP = 1;
@@ -11,30 +11,33 @@ const Bpm = ({controller, bpmOptions}) => {
     const [bpm] = useSubscribe(controller.bpm);
 
     return (
-        <div >
+        <div>
             <div style={{display: "flex", justifyContent: "center", textAlign: "center"}}>
-                <Button  size={"large"} type="primary" shape="circle"  icon={<MinusOutlined/>} onMouseDown={(e) =>
-                    onHeld(
-                        e,
-                        controller.bpm.decreaseBy.bind(null, STEP),
-                        HELD_DELAY
-                    )
-                }/>
-                <Slider min={bpmOptions.range.from}
-                        max={bpmOptions.range.to}
-                        step={STEP}
-                        value={bpm}
-                        tooltipVisible={false}
-                        onChange={(bpm) => controller.bpm.set(parseInt(bpm))}
-                        style={{width: "100%"}}
+                <HeldButton
+                    callback={controller.bpm.decreaseBy.bind(null, STEP)}
+                    heldDelay={HELD_DELAY}
+                    size={"large"}
+                    type="primary"
+                    shape="circle"
+                    icon={<MinusOutlined />}
                 />
-                <Button  size={"large"} type="primary" shape="circle"  icon={<PlusOutlined/>} onMouseDown={(e) =>
-                    onHeld(
-                        e,
-                        controller.bpm.increaseBy.bind(null, STEP),
-                        HELD_DELAY
-                    )
-                }/>
+                <Slider
+                    min={bpmOptions.range.from}
+                    max={bpmOptions.range.to}
+                    step={STEP}
+                    value={bpm}
+                    tooltipVisible={false}
+                    onChange={(bpm) => controller.bpm.set(parseInt(bpm))}
+                    style={{ width: "100%" }}
+                />
+                <HeldButton
+                    callback={controller.bpm.increaseBy.bind(null, STEP)}
+                    heldDelay={HELD_DELAY}
+                    size={"large"}
+                    type="primary"
+                    shape="circle"
+                    icon={<PlusOutlined />}
+                />
             </div>
         </div>
     );
