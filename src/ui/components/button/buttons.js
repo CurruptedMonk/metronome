@@ -1,8 +1,8 @@
 import Button from "./Button";
-import KeyboardControlledButton from "./decorators/KeyboardControlledButtonDecorator";
-import SubscribedButton from "./decorators/CheckboxedButtonDecorator";
 import onTap from "../../handlers/onTap";
 import onHeld from "../../handlers/onHeld";
+import KeyboardControlledButtonDecorator from "./decorators/KeyboardControlledButtonDecorator";
+import CheckboxedButtonDecorator from "./decorators/CheckboxedButtonDecorator";
 import {
     AudioMutedOutlined,
     AudioOutlined,
@@ -12,70 +12,54 @@ import {
     PlusOutlined,
 } from "@ant-design/icons";
 
-const TapButton = ({ controller, keyboardEvent, keyboardKeys }) => {
-    return (
-        <KeyboardControlledButton
-            keyboardEvent={keyboardEvent}
-            keyboardKeys={keyboardKeys}
-            onClick={() => onTap(controller.set)}
-            size={"large"}
-            type="primary"
-        >
-            <Button>Tap</Button>
-        </KeyboardControlledButton>
-    );
-};
-
-const VoiceControlButton = ({ controller, keyboardEvent, keyboardKeys }) => {
-    return (
-        <SubscribedButton
-            keyboardEvent={keyboardEvent}
-            keyboardKeys={keyboardKeys}
-            controller={controller}
-            onClick={controller.toggle}
-            size={"large"}
-            type={"primary"}
-            activeProps={{
-                icon: <AudioMutedOutlined />,
-                text: "Off",
-            }}
-            notActiveProps={{
-                icon: <AudioOutlined />,
-                text: "On",
-            }}
-        >
-            <KeyboardControlledButton>
-                <Button></Button>
-            </KeyboardControlledButton>
-        </SubscribedButton>
-    );
-};
-
-const StartButton = ({ controller, keyboardEvent, keyboardKeys }) => {
-    return (
-        <SubscribedButton
-            keyboardEvent={keyboardEvent}
-            keyboardKeys={keyboardKeys}
-            controller={controller}
-            type={"primary"}
-            size={"large"}
-            activeProps={{
+const StartButton = ({ controller, ...props }) =>
+    KeyboardControlledButtonDecorator({
+        Component: CheckboxedButtonDecorator({
+            Component: <Button {...props} />,
+            controller: controller,
+            activeProps: {
                 icon: <PauseCircleFilled />,
                 onClick: controller.stop,
                 text: "Stop",
-            }}
-            notActiveProps={{
+            },
+            notActiveProps: {
                 icon: <PlayCircleFilled />,
                 onClick: controller.play,
                 text: "Play",
-            }}
-        >
-            <KeyboardControlledButton>
-                <Button></Button>
-            </KeyboardControlledButton>
-        </SubscribedButton>
-    );
-};
+            },
+        }),
+        keyboardEvent: "keyup",
+        keyboardKeys: [" ", "spacebar"],
+    });
+
+const TapButton = ({ controller, ...props }) =>
+    KeyboardControlledButtonDecorator({
+        Component: (
+            <Button {...props} onClick={() => onTap(controller.set)}>
+                Tap
+            </Button>
+        ),
+        keyboardEvent: "keydown",
+        keyboardKeys: ["q"],
+    });
+
+const VoiceControlButton = ({ controller, ...props }) =>
+    KeyboardControlledButtonDecorator({
+        Component: CheckboxedButtonDecorator({
+            Component: <Button {...props} onClick={controller.toggle} />,
+            controller: controller,
+            activeProps: {
+                icon: <AudioMutedOutlined />,
+                text: "Off",
+            },
+            notActiveProps: {
+                icon: <AudioOutlined />,
+                text: "On",
+            },
+        }),
+        keyboardEvent: "keyup",
+        keyboardKeys: ["m"],
+    });
 
 const DecreaseButton = ({ controller, step, heldDelay, ...props }) => {
     return (

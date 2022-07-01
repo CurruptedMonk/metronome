@@ -1,6 +1,7 @@
 import React from "react";
 import { StartButton, TapButton, VoiceControlButton } from "./button/buttons";
-const ControlButtons = ({controller}) => {
+
+const ControlButtons = ({ controller }) => {
     return (
         <div
             style={{
@@ -11,20 +12,18 @@ const ControlButtons = ({controller}) => {
         >
             <StartButton
                 controller={controller.sequencer}
-                keyboardEvent={"keydown"}
-                keyboardKeys={[" ", "spacebar"]}
+                type={"primary"}
+                size={"large"}
             />
-
             <TapButton
                 controller={controller.bpm}
-                keyboardEvent={"keydown"}
-                keyboardKeys={["q"]}
+                type={"primary"}
+                size={"large"}
             />
-
             <VoiceControlButton
                 controller={controller.voiceControl}
-                keyboardEvent={"keyup"}
-                keyboardKeys={["m"]}
+                type={"primary"}
+                size={"large"}
             />
         </div>
     );

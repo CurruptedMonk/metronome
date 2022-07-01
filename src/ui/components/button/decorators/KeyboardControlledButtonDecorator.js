@@ -1,12 +1,11 @@
 import React, { useRef } from "react";
 import useWindowListener from "../../../hooks/useWindowListener";
 import onKeyBoard from "../../../handlers/onKeyboard";
-import cutChildren from "./helpers/cutChildren";
 
 const KeyboardControlledButtonDecorator = ({
+    Component,
     keyboardEvent,
     keyboardKeys,
-    ...props
 }) => {
     const buttonRef = useRef(null);
     const buttonCallback = () => buttonRef.current.click();
@@ -16,10 +15,7 @@ const KeyboardControlledButtonDecorator = ({
         onKeyBoard.bind(null, buttonCallback, keyboardKeys)
     );
 
-    const [children, propsWithoutChildren] = cutChildren(props);
-
-    return React.cloneElement(children, {
-        ...propsWithoutChildren,
+    return React.cloneElement(Component, {
         ref: buttonRef,
     });
 };
