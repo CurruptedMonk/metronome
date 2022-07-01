@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import useWindowListener from "../../../hooks/useWindowListener";
-import onKeyBoard from "../../../handlers/onKeyboard";
+import useWindowListener from "../../hooks/useWindowListener";
+import onKeyBoard from "../../handlers/onKeyboard";
 
 const KeyboardControlledButtonDecorator = ({
     Component,

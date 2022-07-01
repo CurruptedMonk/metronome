@@ -1,8 +1,8 @@
 import Button from "./Button";
 import onTap from "../../handlers/onTap";
 import onHeld from "../../handlers/onHeld";
-import KeyboardControlledButtonDecorator from "./decorators/KeyboardControlledButtonDecorator";
-import CheckboxedButtonDecorator from "./decorators/CheckboxedButtonDecorator";
+import KeyboardControlledButtonDecorator from "../../decorators/button/KeyboardControlledButtonDecorator";
+import CheckboxedButtonDecorator from "../../decorators/button/CheckboxedButtonDecorator";
 import {
     AudioMutedOutlined,
     AudioOutlined,
