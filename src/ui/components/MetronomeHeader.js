@@ -1,5 +1,5 @@
 import React from "react";
-import SubscribedValue from "./SubscribedValue.js";
+import SubscribedValue from "./value/SubscribedValue.js";
 
 const MetronomeHeader = ({ entities }) => {
     const BpmValue = <SubscribedValue controller={entities.bpm} />;

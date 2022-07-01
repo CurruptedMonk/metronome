@@ -1,5 +1,5 @@
 import React from "react";
-import SubscribedSlider from "./SubscribedSlider";
+import SubscribedSlider from "./slider/SubscribedSlider";
 import { DecreaseButton, IncreaseButton } from "./button/buttons.js";
 
 const Bpm = ({controller, bpmOptions}) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import SubscribedValue from "./SubscribedValue.js";
+import SubscribedValue from "./value/SubscribedValue.js";
 import { DecreaseButton, IncreaseButton } from "./button/buttons.js";
 
 const Beat = ({controller}) => {
