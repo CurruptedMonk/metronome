@@ -1,4 +1,4 @@
-import SubscribedSelect from "./SubscribedSelect";
+import Select from "./Select";
 import useSubscribe from "../../hooks/useSubscribe";
 
 const SampleSelect = ({ name, controller, available }) => {
@@ -15,7 +15,7 @@ const SampleSelect = ({ name, controller, available }) => {
             <span style={{ fontSize: "1.2rem", margin: "0 .5rem" }}>
                 {name}
             </span>
-            <SubscribedSelect
+            <Select
                 controller={controller}
                 available={available}
                 currentValue={currentValue}
