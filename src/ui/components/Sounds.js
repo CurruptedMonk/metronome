@@ -1,18 +1,26 @@
 import Sample from "./Sample";
 import React from "react";
+import SampleSelect from "./select/SampleSelect";
 
 const Sounds = ({controller, sampleOptions}) => {
-    return(
-        <div style={{display: "flex", justifyContent: "end", textAlign: "center"}}>
-            <Sample
+    return (
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "end",
+                textAlign: "center",
+            }}
+        >
+            <SampleSelect
                 name={"Upbeat sound:"}
-                sampleController={controller.upbeatSample}
-                sampleOptions={sampleOptions.upbeat}
+                controller={controller.upbeatSample}
+                available={sampleOptions.upbeat.available}
             />
-            <Sample
+
+            <SampleSelect
                 name={"Downbeat sound:"}
-                sampleController={controller.downbeatSample}
-                sampleOptions={sampleOptions.downbeat}
+                controller={controller.downbeatSample}
+                available={sampleOptions.downbeat.available}
             />
         </div>
     );
