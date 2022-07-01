@@ -1,14 +1,31 @@
 import React from "react";
-import StartButton from "./StartButton";
-import VoiceControlButton from "./VoiceControlButton";
-import TapButton from "./TapButton";
-
+import { StartButton, TapButton, VoiceControlButton } from "./button/buttons";
 const ControlButtons = ({controller}) => {
     return (
-        <div style={{display:"flex", alignItems: "center", justifyContent: "center"}}>
-            <StartButton controller={controller.sequencer} keyBoardKeys={[" ", "spacebar"]}/>
-            <VoiceControlButton controller={controller.voiceControl} keyBoardKeys={["m"]}/>
-            <TapButton controller={controller.bpm} keyBoardKeys={["t"]}/>
+        <div
+            style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
+        >
+            <StartButton
+                controller={controller.sequencer}
+                keyboardEvent={"keydown"}
+                keyboardKeys={[" ", "spacebar"]}
+            />
+
+            <TapButton
+                controller={controller.bpm}
+                keyboardEvent={"keydown"}
+                keyboardKeys={["q"]}
+            />
+
+            <VoiceControlButton
+                controller={controller.voiceControl}
+                keyboardEvent={"keyup"}
+                keyboardKeys={["m"]}
+            />
         </div>
     );
 };

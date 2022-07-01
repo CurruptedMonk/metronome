@@ -1,7 +1,6 @@
 import React from "react";
-import {MinusOutlined, PlusOutlined} from "@ant-design/icons";
 import SubscribedValue from "./SubscribedValue.js";
-import HeldButton from "./HeldButton";
+import { DecreaseButton, IncreaseButton } from "./button/buttons.js";
 
 const Beat = ({controller}) => {
     const STEP = 1;
@@ -14,25 +13,31 @@ const Beat = ({controller}) => {
         />
     );
     return (
-        <div style={{display: "flex", justifyContent: "space-around", textAlign: "center"}}>
-            <span style={{fontSize: "1.2rem", margin: "0 .5rem"}}>Beats</span>
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "space-around",
+                textAlign: "center",
+            }}
+        >
+            <span style={{ fontSize: "1.2rem", margin: "0 .5rem" }}>Beats</span>
             <div>
-                <HeldButton
-                    callback={controller.beat.decreaseBy.bind(null, STEP)}
+                <DecreaseButton
+                    controller={controller.beat}
+                    step={STEP}
                     heldDelay={HELD_DELAY}
                     size={"default"}
                     type="primary"
                     shape="circle"
-                    icon={<MinusOutlined />}
                 />
                 {BeatValue}
-                <HeldButton
-                    callback={controller.beat.increaseBy.bind(null, STEP)}
+                <IncreaseButton
+                    controller={controller.beat}
+                    step={STEP}
                     heldDelay={HELD_DELAY}
                     size={"default"}
                     type="primary"
                     shape="circle"
-                    icon={<PlusOutlined />}
                 />
             </div>
         </div>

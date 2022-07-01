@@ -1,21 +1,26 @@
 import React from "react";
-import {PlusOutlined, MinusOutlined} from "@ant-design/icons";
-import HeldButton from "./HeldButton";
 import SubscribedSlider from "./SubscribedSlider";
+import { DecreaseButton, IncreaseButton } from "./button/buttons.js";
 
 const Bpm = ({controller, bpmOptions}) => {
     const STEP = 1;
     const HELD_DELAY = 35;
 
     return (
-        <div style={{display: "flex", justifyContent: "center", textAlign: "center"}}>
-            <HeldButton
-                callback={controller.bpm.decreaseBy.bind(null, STEP)}
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+            }}
+        >
+            <DecreaseButton
+                controller={controller.bpm}
+                step={STEP}
                 heldDelay={HELD_DELAY}
                 size={"large"}
                 type="primary"
                 shape="circle"
-                icon={<MinusOutlined />}
             />
             <SubscribedSlider
                 style={{ width: "100%" }}
@@ -24,13 +29,13 @@ const Bpm = ({controller, bpmOptions}) => {
                 max={bpmOptions.range.to}
                 step={STEP}
             />
-            <HeldButton
-                callback={controller.bpm.increaseBy.bind(null, STEP)}
+            <IncreaseButton
+                controller={controller.bpm}
+                step={STEP}
                 heldDelay={HELD_DELAY}
                 size={"large"}
                 type="primary"
                 shape="circle"
-                icon={<PlusOutlined />}
             />
         </div>
     );
