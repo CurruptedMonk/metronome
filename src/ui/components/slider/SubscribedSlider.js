@@ -1,6 +1,6 @@
 import React from "react";
 import { Slider } from "antd";
-import useSubscribe from "../hooks/useSubscribe";
+import useSubscribe from "../../hooks/useSubscribe";
 
 const SubscribedSlider = ({ controller, ...props }) => {
     const [value] = useSubscribe(controller);
