@@ -10,6 +10,7 @@ const NamedSelect = ({ name, controller, available }) => {
                 display: "flex",
                 justifyContent: "center",
                 textAlign: "center",
+                flexWrap: "wrap"
             }}
         >
             <span style={{ fontSize: "1.2rem", margin: "0 .5rem" }}>

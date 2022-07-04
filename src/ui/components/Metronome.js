@@ -1,8 +1,8 @@
 import SubscribedSlider from "./slider/SubscribedSlider";
 import { DecreaseButton, IncreaseButton } from "./button/buttons.js";
 import { StartButton, TapButton, VoiceControlButton } from "./button/buttons";
-import SubscribedDuration from "./radio/SubscribedImagedRadio";
-import SampleSelect from "./select/NamedSelect";
+import SubscribedImagedRadio from "./radio/SubscribedImagedRadio";
+import NamedSelect from "./select/NamedSelect";
 import SubscribedValue from "./value/SubscribedValue";
 
 const Metronome = ({ controller, options }) => {
@@ -20,7 +20,7 @@ const Metronome = ({ controller, options }) => {
     const MEDIUM_HELD_DELAY = 100;
 
     return (
-        <div style={{ width: "50%", margin: "auto" }}>
+        <>
             <div
                 style={{
                     display: "flex",
@@ -28,6 +28,7 @@ const Metronome = ({ controller, options }) => {
                     textAlign: "center",
                     flexDirection: "column",
                     fontSize: "2rem",
+                    margin: "1rem auto",
                 }}
             >
                 <div>
@@ -78,6 +79,7 @@ const Metronome = ({ controller, options }) => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    flexWrap: "wrap",
                 }}
             >
                 <StartButton
@@ -98,9 +100,11 @@ const Metronome = ({ controller, options }) => {
                     display: "flex",
                     justifyContent: "space-around",
                     textAlign: "center",
+                    marginTop: ".5rem",
+                    marginBottom: ".5rem"
                 }}
             >
-                <span style={{ fontSize: "1.2rem", margin: "0 .5rem" }}>
+                <span style={{ fontSize: "1.2rem"}}>
                     Beats
                 </span>
                 <div>
@@ -112,7 +116,7 @@ const Metronome = ({ controller, options }) => {
                         type="primary"
                         shape="circle"
                     />
-                    <SubscribedValue controller={beat} />
+                    <SubscribedValue controller={beat} style={{fontSize: "1.2rem", margin: ".3rem"}} />
                     <IncreaseButton
                         controller={beat}
                         step={STEP}
@@ -129,9 +133,11 @@ const Metronome = ({ controller, options }) => {
                     display: "flex",
                     justifyContent: "center",
                     textAlign: "center",
+                    flexWrap: "wrap",
+                    marginBottom: ".5rem"
                 }}
             >
-                <SubscribedDuration
+                <SubscribedImagedRadio
                     controller={duration}
                     available={options.duration.available}
                 />
@@ -144,19 +150,19 @@ const Metronome = ({ controller, options }) => {
                     textAlign: "center",
                 }}
             >
-                <SampleSelect
-                    name={"Upbeat sound:"}
+                <NamedSelect
+                    name={"Upbeat:"}
                     controller={upbeatSample}
                     available={options.sample.upbeat.available}
                 />
 
-                <SampleSelect
-                    name={"Downbeat sound:"}
+                <NamedSelect
+                    name={"Downbeat:"}
                     controller={downbeatSample}
                     available={options.sample.downbeat.available}
                 />
             </div>
-        </div>
+        </>
     );
 };
 

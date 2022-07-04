@@ -6,13 +6,7 @@ const SubscribedImagedRadio = ({ controller, available }) => {
     const [duration] = useSubscribe(controller);
 
     return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                textAlign: "center",
-            }}
-        >
+        <>
             {available.map((value) => (
                 <Radio.Button
                     style={{ width: "6rem", height: "5rem", margin: "0 .2rem" }}
@@ -28,7 +22,7 @@ const SubscribedImagedRadio = ({ controller, available }) => {
                     />
                 </Radio.Button>
             ))}
-        </div>
+        </>
     );
 };
 

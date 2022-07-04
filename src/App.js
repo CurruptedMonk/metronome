@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect } from "react";
 import { Layout, Typography } from "antd";
-import { Content, Header } from "antd/es/layout/layout";
+import { Content, Header, Footer } from "antd/es/layout/layout";
 import Metronome from "./ui/components/Metronome";
 const { Title } = Typography;
 
@@ -30,6 +30,7 @@ function App({ controller, options }) {
                 <Content>
                     <Metronome controller={controller} options={options} />
                 </Content>
+                <Footer/>
             </Layout>
         </div>
     );
