@@ -7,7 +7,7 @@ import ControlButtons from "./ui/components/ControlButtons";
 import Beat from "./ui/components/Beat";
 import Duration from "./ui/components/Duration";
 import Sounds from "./ui/components/Sounds";
-import MetronomeHeader from "./ui/components/MetronomeHeader";
+import Tempo from "./ui/components/Tempo";
 const {Title} = Typography;
 
 function App({controller, options}) {
@@ -28,7 +28,7 @@ function App({controller, options}) {
               </div>
           </Header>
           <Content style={{width:"50%", margin:"auto"}}>
-            <MetronomeHeader
+            <Tempo
                 entities={{
                     bpm: controller.bpm,
                     beat: controller.beat,
