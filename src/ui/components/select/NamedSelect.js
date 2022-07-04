@@ -1,7 +1,7 @@
 import Select from "./Select";
 import useSubscribe from "../../hooks/useSubscribe";
 
-const SampleSelect = ({ name, controller, available }) => {
+const NamedSelect = ({ name, controller, available }) => {
     const [currentValue] = useSubscribe(controller);
 
     return (
@@ -26,4 +26,4 @@ const SampleSelect = ({ name, controller, available }) => {
     );
 };
 
-export default SampleSelect;
+export default NamedSelect;
