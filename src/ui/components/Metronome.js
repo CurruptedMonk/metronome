@@ -21,16 +21,7 @@ const Metronome = ({ controller, options }) => {
 
     return (
         <>
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    flexDirection: "column",
-                    fontSize: "2rem",
-                    margin: "1rem auto",
-                }}
-            >
+            <div className="wrapper tempo">
                 <div>
                     <SubscribedValue controller={bpm} />
                     {" BPM"}
@@ -42,13 +33,7 @@ const Metronome = ({ controller, options }) => {
                 </div>
             </div>
 
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    textAlign: "center",
-                }}
-            >
+            <div className="wrapper">
                 <DecreaseButton
                     controller={bpm}
                     step={STEP}
@@ -58,7 +43,7 @@ const Metronome = ({ controller, options }) => {
                     shape="circle"
                 />
                 <SubscribedSlider
-                    style={{ width: "100%" }}
+                    className="slider"
                     controller={bpm}
                     min={options.bpm.range.from}
                     max={options.bpm.range.to}
@@ -74,14 +59,7 @@ const Metronome = ({ controller, options }) => {
                 />
             </div>
 
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexWrap: "wrap",
-                }}
-            >
+            <div className="wrapper launcher">
                 <StartButton
                     controller={sequencer}
                     type={"primary"}
@@ -95,18 +73,8 @@ const Metronome = ({ controller, options }) => {
                 />
             </div>
 
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "space-around",
-                    textAlign: "center",
-                    marginTop: ".5rem",
-                    marginBottom: ".5rem"
-                }}
-            >
-                <span style={{ fontSize: "1.2rem"}}>
-                    Beats
-                </span>
+            <div className="wrapper beat">
+                <span className="text-medium">Beats</span>
                 <div>
                     <DecreaseButton
                         controller={beat}
@@ -116,7 +84,10 @@ const Metronome = ({ controller, options }) => {
                         type="primary"
                         shape="circle"
                     />
-                    <SubscribedValue controller={beat} style={{fontSize: "1.2rem", margin: ".3rem"}} />
+                    <SubscribedValue
+                        controller={beat}
+                        className="text-medium small-side-margins"
+                    />
                     <IncreaseButton
                         controller={beat}
                         step={STEP}
@@ -128,28 +99,14 @@ const Metronome = ({ controller, options }) => {
                 </div>
             </div>
 
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    flexWrap: "wrap",
-                    marginBottom: ".5rem"
-                }}
-            >
+            <div className="wrapper duration">
                 <SubscribedImagedRadio
                     controller={duration}
                     available={options.duration.available}
                 />
             </div>
 
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "end",
-                    textAlign: "center",
-                }}
-            >
+            <div className="wrapper sample">
                 <NamedSelect
                     name={"Upbeat:"}
                     controller={upbeatSample}

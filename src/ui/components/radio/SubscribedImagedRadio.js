@@ -9,7 +9,7 @@ const SubscribedImagedRadio = ({ controller, available }) => {
         <>
             {available.map((value) => (
                 <Radio.Button
-                    style={{ width: "6rem", height: "5rem", margin: "0 .2rem" }}
+                    className="imaged-radio"
                     checked={value === duration}
                     key={value}
                     value={value}
@@ -17,7 +17,7 @@ const SubscribedImagedRadio = ({ controller, available }) => {
                 >
                     <img
                         src={`./images/${value}.jpg`}
-                        style={{ height: "100%", width: "100%" }}
+                        className="image-full"
                         alt={`Duration ${value}`}
                     />
                 </Radio.Button>

@@ -4,19 +4,17 @@ const Select = ({
     controller,
     available,
     currentValue,
-    selectStyles,
-    optionStyles,
 }) => {
     return (
         <AntdSelect
-            style={{ ...selectStyles }}
+            className="select"
             value={currentValue}
             onChange={(value) => {
                 controller.set(value);
             }}
         >
             {available.map((value) => (
-                <AntdSelect.Option style={{ ...optionStyles }} key={value}>
+                <AntdSelect.Option key={value}>
                     {value}
                 </AntdSelect.Option>
             ))}

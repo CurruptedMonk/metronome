@@ -18,19 +18,14 @@ function App({ controller, options }) {
         <div className="App">
             <Layout>
                 <Header>
-                    <div>
-                        <Title>
-                            Metronome{" "}
-                            <span className={"subtitle"}>
-                                With voice control
-                            </span>
-                        </Title>
-                    </div>
+                    <Title>
+                        Metronome <span>With voice control</span>
+                    </Title>
                 </Header>
                 <Content>
                     <Metronome controller={controller} options={options} />
                 </Content>
-                <Footer/>
+                <Footer />
             </Layout>
         </div>
     );

@@ -5,23 +5,12 @@ const NamedSelect = ({ name, controller, available }) => {
     const [currentValue] = useSubscribe(controller);
 
     return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                textAlign: "center",
-                flexWrap: "wrap"
-            }}
-        >
-            <span style={{ fontSize: "1.2rem", margin: "0 .5rem" }}>
-                {name}
-            </span>
+        <div className="select-wrapper ">
+            <span className="text-medium small-side-margins">{name}</span>
             <Select
                 controller={controller}
                 available={available}
                 currentValue={currentValue}
-                selectStyles={{ width: "8rem", fontSize: "1.2rem" }}
-                optionStyles={{ fontSize: "1.2rem" }}
             />
         </div>
     );
