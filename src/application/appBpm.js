@@ -1,23 +1,45 @@
 import createBpm from "../domain/derivedEntities/bpm/createBpm";
+import VALIDATION_STATUS from "../domain/entity/VALIDATION_STATUS";
 
 const appBpm = (options) => {
     const bpm = createBpm(options.initialValue, options.range);
 
     const set = (value) => {
-        if(bpm.checkValue(value)) {
-            bpm.set(value);
+        switch (bpm.checker(value)) {
+            case VALIDATION_STATUS.PASSED:
+                bpm.set(value);
+                break;
+            case VALIDATION_STATUS.FAILED.LESS:
+                bpm.set(options.range.from);
+                break;
+            case VALIDATION_STATUS.FAILED.MORE:
+                bpm.set(options.range.to);
+                break;
+            default:
         }
-    };
-
+    }
+    
     const increaseBy = (step) => {
-        if(bpm.checkIncreaseStep(step)) {
-            bpm.increaseBy(step);
+        switch (bpm.checkIncreaseStep(step)) {
+            case VALIDATION_STATUS.PASSED:
+                bpm.increaseBy(step);
+                break;
+            case VALIDATION_STATUS.FAILED.MORE:
+                bpm.set(options.range.to);
+                break;
+            default:
         }
     };
 
     const decreaseBy = (step) => {
-        if(bpm.checkDecreaseStep(step)) {
-            bpm.decreaseBy(step);
+        switch (bpm.checkDecreaseStep(step)) {
+            case VALIDATION_STATUS.PASSED:
+                bpm.decreaseBy(step);
+                break;
+            case VALIDATION_STATUS.FAILED.LESS:
+                bpm.set(options.range.from);
+                break;
+            default:
         }
     };
 

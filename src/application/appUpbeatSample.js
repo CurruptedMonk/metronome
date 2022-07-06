@@ -1,10 +1,11 @@
 import createSample from "../domain/derivedEntities/sample/createSample";
+import VALIDATION_STATUS from "../domain/entity/VALIDATION_STATUS";
 
 const appUpbeatSample = (options) => {
     const sample = createSample(options.initialValue, options.available);
 
     const set = (value) => {
-        if(sample.checkValue(value)) {
+        if (sample.checker(value) === VALIDATION_STATUS.PASSED) {
             sample.set(value);
         }
     };

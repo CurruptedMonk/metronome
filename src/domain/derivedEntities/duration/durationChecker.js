@@ -1,7 +1,11 @@
-const durationChecker = (available) => (value) =>{
-    if(!Number.isInteger(value)) throw new Error("Value should be an integer");
+import VALIDATION_STATUS from "../../entity/VALIDATION_STATUS";
 
-    return (value > 0) && available.includes(value);
+const durationChecker = (available) => (value) => {
+    if (!Number.isInteger(value)) return VALIDATION_STATUS.FAILED.INVALID;
+
+    return available.includes(value)
+        ? VALIDATION_STATUS.PASSED
+        : VALIDATION_STATUS.FAILED.INVALID;
 };
 
 export default durationChecker;

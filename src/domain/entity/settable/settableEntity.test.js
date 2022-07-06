@@ -1,9 +1,11 @@
 import settableEntity from "./settableEntity";
+import VALIDATION_STATUS from "../VALIDATION_STATUS";
 
 describe("settableEntity", () => {
-    const passedChecker = () => true;
-    const failedChecker = () => false;
-    const moreThenZeroChecker = (x) => x > 0;
+    const passedChecker = () => VALIDATION_STATUS.PASSED;
+    const failedChecker = () => VALIDATION_STATUS.FAILED.INVALID;
+    const moreThanZeroChecker = (x) =>
+        x > 0 ? passedChecker() : failedChecker();
     const initialValue = 1;
 
     describe("check initial value", () => {
@@ -17,55 +19,31 @@ describe("settableEntity", () => {
     });
 
     describe("set", () => {
-        let testEntity;
         let callback;
 
         beforeEach(() => {
-            testEntity = settableEntity(initialValue, moreThenZeroChecker);
             callback = jest.fn();
         });
 
         it("valid new value was passed", () => {
+            const entity = settableEntity(initialValue, passedChecker);
             const passedValue = initialValue + 1;
-            testEntity.subscribe(Symbol(), callback);
+            entity.subscribe(Symbol(), callback);
 
-            testEntity.set(passedValue);
+            entity.set(passedValue);
 
             expect(callback).toHaveBeenCalledWith(passedValue);
         });
 
         it("invalid new value was passed", () => {
+            const entity = settableEntity(initialValue, moreThanZeroChecker);
             const passedValue = 0;
-            testEntity.subscribe(Symbol(), callback);
+            entity.subscribe(Symbol(), callback);
 
-            testEntity.set(passedValue);
+            entity.set(passedValue);
 
             expect(callback).not.toHaveBeenCalled();
         })
-    });
-
-    describe("check", () => {
-
-        it("checker returns true and current value not equals new value", () => {
-            const entity = settableEntity(initialValue, passedChecker);
-            const newValue = initialValue + 1;
-
-            expect(entity.checkValue(newValue)).toBe(true);
-        });
-
-        it("checker returns false and current value not equals new value", () => {
-            const entity = settableEntity(initialValue, moreThenZeroChecker);
-            const newValue = 0;
-
-            expect(entity.checkValue(newValue)).toBe(false);
-        });
-
-        it("checker returns true and current value equals new value", () => {
-            const entity = settableEntity(initialValue, passedChecker);
-            const newValue = initialValue;
-
-            expect(entity.checkValue(newValue)).toBe(false);
-        });
     });
 
     describe("subscribe", () => {
