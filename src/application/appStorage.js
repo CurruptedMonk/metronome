@@ -5,26 +5,43 @@ import partial from "../lib/partial";
 const appStorage = (storage, entities) => {
     const DEBOUNCE_TIMEOUT_MS = 600;
     const subscriberKeys = createSubscriberKeys(entities);
+    const preset = {};
+    let presetName = "base";
 
-    for (const [name, entity] of Object.entries(entities)) {
-        entity.subscribe(
-            subscriberKeys[name],
-            debounce(
-                partial(storage.save, name),
-                DEBOUNCE_TIMEOUT_MS
-            )
+    const save = (key, value) => {
+        preset[key] = value;
+        debounce(
+            storage.save(presetName, preset),
+            DEBOUNCE_TIMEOUT_MS
         );
+    };
+
+    const subscribeToEntitiesUpdates = (entities, callback) => {
+        for (const [key, entity] of Object.entries(entities)) {
+            entity.subscribe(
+                subscriberKeys[key],
+                partial(callback, key)
+            );
+        }
     }
 
+    const setPresetName = (name) => {
+        presetName = name;
+        storage.save(presetName, preset)
+    };
+
     const downloadSettings = async () => {
-        for (const [name, entity] of Object.entries(entities)) {
-            const value = await storage.download(name);
-            if(value) entity.set(value);
+        const values = await storage.download(presetName);
+        for (const [key, value] of Object.entries(values)) {
+            entities[key].set(value);
         }
     };
 
+    subscribeToEntitiesUpdates(entities, save);
+
     return Object.freeze({
-        downloadSettings
+        downloadSettings,
+        setPresetName
     });
 };
 
