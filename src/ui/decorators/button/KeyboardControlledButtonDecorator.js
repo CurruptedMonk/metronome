@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import useWindowListener from "../../hooks/useWindowListener";
 import onKeyBoard from "../../handlers/onKeyboard";
+import partial from "../../../lib/partial";
 
 const KeyboardControlledButtonDecorator = ({
     Component,
@@ -12,7 +13,7 @@ const KeyboardControlledButtonDecorator = ({
 
     useWindowListener(
         keyboardEvent,
-        onKeyBoard.bind(null, buttonCallback, keyboardKeys)
+        partial(onKeyBoard, buttonCallback, keyboardKeys)
     );
 
     return React.cloneElement(Component, {

@@ -11,6 +11,7 @@ import {
     MinusOutlined,
     PlusOutlined,
 } from "@ant-design/icons";
+import partial from "../../../lib/partial";
 
 const StartButton = ({ controller, ...props }) =>
     KeyboardControlledButtonDecorator({
@@ -65,7 +66,7 @@ const DecreaseButton = ({ controller, step, heldDelay, ...props }) => {
     return (
         <Button
             onMouseDown={(e) =>
-                onHeld(e, controller.decreaseBy.bind(null, step), heldDelay)
+                onHeld(e, partial(controller.decreaseBy, step), heldDelay)
             }
             icon={<MinusOutlined />}
             {...props}
@@ -77,7 +78,7 @@ const IncreaseButton = ({ controller, step, heldDelay, ...props }) => {
     return (
         <Button
             onMouseDown={(e) =>
-                onHeld(e, controller.increaseBy.bind(null, step), heldDelay)
+                onHeld(e, partial(controller.increaseBy, step), heldDelay)
             }
             icon={<PlusOutlined />}
             {...props}

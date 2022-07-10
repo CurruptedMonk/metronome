@@ -1,9 +1,10 @@
 import createSubscriberKeys from "./createSubscriberKeys";
+import partial from "../lib/partial";
 
 const appSequencer = (sequencer, entities) => {
     const subscriberKeys = createSubscriberKeys(entities);
     for (const [name, entity] of Object.entries(entities)) {
-        entity.subscribe(subscriberKeys[name], sequencer.set.bind(null, name), true);
+        entity.subscribe(subscriberKeys[name], partial(sequencer.set, name), true);
     }
 
     const loadSamples = async () => {
