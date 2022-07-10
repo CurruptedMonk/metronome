@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import appController from "./application/appController";
+import metronomeController from "./controller/metronomeController";
 import metronomeOptions from "./metronomeOptions";
 
-const controller = appController(metronomeOptions);
+const controller = metronomeController(metronomeOptions);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(

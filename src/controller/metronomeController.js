@@ -1,17 +1,17 @@
-import appBeat from "./appBeat";
-import appBpm from "./appBpm";
-import appDuration from "./appDuration";
-import appUpbeatSample from "./appUpbeatSample";
-import appDownbeatSample from "./appDownbeatSample";
-import appSequencer from "./appSequencer";
+import appBeat from "../application/appBeat";
+import appBpm from "../application/appBpm";
+import appDuration from "../application/appDuration";
+import appUpbeatSample from "../application/appUpbeatSample";
+import appDownbeatSample from "../application/appDownbeatSample";
+import appSequencer from "../application/appSequencer";
 import webAudioSequencer from "../services/webSequencer/webAudioSequencer";
-import appVoiceControl from "./appVoiceControl";
+import appVoiceControl from "../application/appVoiceControl";
 import webSpeechRecognition from "../services/webSpeechRecognition/webSpeechRecognition";
 import webStorage from "../services/storage/webStorage";
 import localStorageAdapter from "../services/storage/localStorageAdapter";
-import appStorage from "./appStorage";
+import appStorage from "../application/appStorage";
 
-const appController = (metronomeOptions) => {
+const metronomeController = (metronomeOptions) => {
     const beat = appBeat(metronomeOptions.beat);
     const bpm = appBpm(metronomeOptions.bpm);
     const duration =  appDuration(metronomeOptions.duration);
@@ -49,4 +49,4 @@ const appController = (metronomeOptions) => {
     });
 };
 
-export default appController;
+export default metronomeController;
