@@ -2,10 +2,11 @@ import createEntity from "./createEntity";
 import ENTITY_TYPE from "./ENTITY_TYPE";
 import RANGE_ENTITY_INTERFACE from "./range/RANGE_ENTITY_INTERFACE";
 import SETTABLE_ENTITY_INTERFACE from "./settable/SETTABLE_ENTITY_INTERFACE";
+import VALIDATION_STATUS from "../entity/VALIDATION_STATUS";
 
 describe("createEntity", () => {
     const initialValue = 1;
-    const passedChecker = () => true;
+    const passedChecker = () => VALIDATION_STATUS.PASSED;
 
     it("invalid type was passed", () => {
         expect(() => createEntity("BAD_TYPE", initialValue, passedChecker)).toThrow("Invalid type was passed");

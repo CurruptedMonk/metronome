@@ -1,10 +1,12 @@
 import rangeEntity from "./rangeEntity";
+import VALIDATION_STATUS from "../VALIDATION_STATUS";
 
 describe("rangeEntity", () => {
-    const passedChecker = () => true;
-    const failedChecker = () => false;
-    const moreThenZeroChecker = (x) => x > 0;
-    const notMoreThenTwo = (x) => !(x >2);
+    const passedChecker = () => VALIDATION_STATUS.PASSED;
+    const failedChecker = () => VALIDATION_STATUS.FAILED.INVALID;
+    const moreThenZeroChecker = (x) =>
+        x > 0 ? passedChecker() : failedChecker();
+    const notMoreThenTwo = (x) => (!(x > 2)) ? passedChecker() : failedChecker();
     const initialValue = 2;
     const step = 1;
 
@@ -52,21 +54,21 @@ describe("rangeEntity", () => {
             const entity = rangeEntity(initialValue, passedChecker);
             const newValue = initialValue + 1;
 
-            expect(entity.checkValue(newValue)).toBe(true);
+            expect(entity.checker(newValue)).toBe(VALIDATION_STATUS.PASSED);
         });
 
         it("checker returns false and current value not equals new value", () => {
             const entity = rangeEntity(initialValue, moreThenZeroChecker);
             const newValue = 0;
 
-            expect(entity.checkValue(newValue)).toBe(false);
+            expect(entity.checker(newValue)).toBe(VALIDATION_STATUS.FAILED.INVALID);
         });
 
         it("checker returns true and current value equals new value", () => {
             const entity = rangeEntity(initialValue, passedChecker);
             const newValue = initialValue;
 
-            expect(entity.checkValue(newValue)).toBe(false);
+            expect(entity.checker(newValue)).toBe(VALIDATION_STATUS.PASSED);
         });
     });
 
@@ -75,14 +77,14 @@ describe("rangeEntity", () => {
             const entity = rangeEntity(initialValue, passedChecker);
             const step = 1;
 
-            expect(entity.checkIncreaseStep(step)).toBe(true);
+            expect(entity.checkIncreaseStep(step)).toBe(VALIDATION_STATUS.PASSED);
         });
 
         it("invalid step was passed", () => {
             const entity = rangeEntity(initialValue, notMoreThenTwo);
             const step = 1;
 
-            expect(entity.checkIncreaseStep(step)).toBe(false);
+            expect(entity.checkIncreaseStep(step)).toBe(VALIDATION_STATUS.FAILED.INVALID);
         });
     });
 
@@ -91,14 +93,14 @@ describe("rangeEntity", () => {
             const entity = rangeEntity(initialValue, passedChecker);
             const step = 1;
 
-            expect(entity.checkDecreaseStep(step)).toBe(true);
+            expect(entity.checkDecreaseStep(step)).toBe(VALIDATION_STATUS.PASSED);
         });
 
         it("invalid step was passed", () => {
             const entity = rangeEntity(initialValue, moreThenZeroChecker);
             const step = 2;
 
-            expect(entity.checkDecreaseStep(step)).toBe(false);
+            expect(entity.checkDecreaseStep(step)).toBe(VALIDATION_STATUS.FAILED.INVALID);
         });
     });
 

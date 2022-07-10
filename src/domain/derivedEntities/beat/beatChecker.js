@@ -1,9 +1,11 @@
 import inRangeIncluding from "../../../lib/inRangeIncluding";
+import VALIDATION_STATUS from "../../entity/VALIDATION_STATUS";
 
 const beatChecker = (range) => (value) => {
-    if(!Number.isInteger(value)) throw new Error("Value should be an integer");
-
-    return (value > 0) && inRangeIncluding(value, range);
+    if (!Number.isInteger(value)) return VALIDATION_STATUS.FAILED.INVALID;
+    if (inRangeIncluding(value, range)) return VALIDATION_STATUS.PASSED;
+    if (value < range.from) return VALIDATION_STATUS.FAILED.LESS;
+    if (value > range.to) return VALIDATION_STATUS.FAILED.MORE;
 }
 
 export default beatChecker;

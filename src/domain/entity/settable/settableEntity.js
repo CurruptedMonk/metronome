@@ -1,41 +1,43 @@
 import createObserver from "../../../lib/createObserver";
+import VALIDATION_STATUS from "../VALIDATION_STATUS";
 
 const settableEntity = (initialValue, checker) => {
-    if(!checker(initialValue)) throw new Error("Invalid initial value was passed!");
+    if (checker(initialValue) !== VALIDATION_STATUS.PASSED)
+        throw new Error("Invalid initial value was passed!");
 
     const observer = createObserver();
     let value = initialValue;
 
     const set = (newValue) => {
-        if(checkValue(newValue)) {
+        if (checkValue(newValue)) {
             value = newValue;
             observer.notify(value);
         }
     };
 
     const checkValue = (newValue) => {
-        return checker(newValue) && newValue !== value;
+        return (
+            newValue !== value && checker(newValue) === VALIDATION_STATUS.PASSED
+        );
     };
 
     const subscribe = (key, getUpdateCallback, isNeedValueForInit = false) => {
-        observer.subscribe(key,getUpdateCallback);
-        if(isNeedValueForInit) {
+        observer.subscribe(key, getUpdateCallback);
+        if (isNeedValueForInit) {
             getUpdateCallback(value);
         }
     };
 
-    const unsubscribe  = (key) => {
+    const unsubscribe = (key) => {
         observer.unsubscribe(key);
     };
 
-    return Object.freeze(
-        {
-            set,
-            checkValue,
-            subscribe,
-            unsubscribe
-        }
-    );
+    return Object.freeze({
+        set,
+        checker,
+        subscribe,
+        unsubscribe,
+    });
 };
 
 export default settableEntity;

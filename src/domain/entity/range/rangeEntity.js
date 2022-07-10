@@ -1,7 +1,10 @@
 import settableEntity from "../settable/settableEntity";
 
-const rangeEntity = (initialValue, checker) => {
-    const {set, checkValue, subscribe, unsubscribe} = settableEntity(initialValue, checker);
+const rangeEntity = (initialValue, rangeChecker) => {
+    const { set, checker, subscribe, unsubscribe } = settableEntity(
+        initialValue,
+        rangeChecker
+    );
     let value = initialValue;
     const getUpdatedValue = (newValue) => value = newValue;
     subscribe(Symbol(), getUpdatedValue);
@@ -15,25 +18,23 @@ const rangeEntity = (initialValue, checker) => {
     };
 
     const checkIncreaseStep = (step) => {
-        return checkValue(value + step);
+        return checker(value + step);
     };
 
     const checkDecreaseStep = (step) => {
-        return checkValue(value - step);
+        return checker(value - step);
     };
 
-    return Object.freeze(
-        {
-            set,
-            checkValue,
-            checkIncreaseStep,
-            checkDecreaseStep,
-            increaseBy,
-            decreaseBy,
-            subscribe,
-            unsubscribe
-        }
-    );
+    return Object.freeze({
+        set,
+        checker,
+        checkIncreaseStep,
+        checkDecreaseStep,
+        increaseBy,
+        decreaseBy,
+        subscribe,
+        unsubscribe,
+    });
 };
 
 export default rangeEntity;

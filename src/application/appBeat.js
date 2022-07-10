@@ -1,10 +1,11 @@
 import createBeat from "../domain/derivedEntities/beat/createBeat";
+import VALIDATION_STATUS from "../domain/entity/VALIDATION_STATUS";
 
 const appBeat = (options) => {
     const beat = createBeat(options.initialValue, options.range);
 
     const set = (value) => {
-        if(beat.checkValue(value)) {
+        if(beat.checker(value) === VALIDATION_STATUS.PASSED) {
             beat.set(value);
         }
     };

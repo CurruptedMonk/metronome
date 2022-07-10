@@ -1,6 +1,6 @@
 export default Object.freeze([
     "set",
-    "checkValue",
+    "checker",
     "subscribe",
     "unsubscribe"
 ]);
