@@ -6,6 +6,7 @@
 .ant-layout-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 h1.ant-typography {
@@ -44,7 +45,7 @@ h1.ant-typography span {
 .wrapper {
     display: flex;
     justify-content: center;
-    text-align: center;
+    align-items: center;
 }
 
 .tempo {
@@ -97,6 +98,10 @@ h1.ant-typography span {
 
 .slider {
     width: 100%;
+}
+
+.invisible {
+    opacity: 0;
 }
 
 @media (max-width: 500px) {

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Layout, Typography } from "antd";
 import { Content, Header, Footer } from "antd/es/layout/layout";
 import Metronome from "./ui/components/Metronome";
+import PresetsDrawer from "./ui/components/drawer/PresetsDrawer";
 const { Title } = Typography;
 
 function App({ controller, options }) {
@@ -21,6 +22,7 @@ function App({ controller, options }) {
                     <Title>
                         Metronome <span>With voice control</span>
                     </Title>
+                    <PresetsDrawer />
                 </Header>
                 <Content>
                     <Metronome controller={controller} options={options} />
