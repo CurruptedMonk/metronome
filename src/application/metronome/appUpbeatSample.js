@@ -1,5 +1,5 @@
-import createSample from "../domain/metronome/derivedEntities/sample/createSample";
-import VALIDATION_STATUS from "../domain/metronome/entity/VALIDATION_STATUS";
+import createSample from "../../domain/metronome/derivedEntities/sample/createSample";
+import VALIDATION_STATUS from "../../domain/metronome/entity/VALIDATION_STATUS";
 
 const appUpbeatSample = (options) => {
     const sample = createSample(options.initialValue, options.available);

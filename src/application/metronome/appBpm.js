@@ -1,5 +1,5 @@
-import createBpm from "../domain/metronome/derivedEntities/bpm/createBpm";
-import VALIDATION_STATUS from "../domain/metronome/entity/VALIDATION_STATUS";
+import createBpm from "../../domain/metronome/derivedEntities/bpm/createBpm";
+import VALIDATION_STATUS from "../../domain/metronome/entity/VALIDATION_STATUS";
 
 const appBpm = (options) => {
     const bpm = createBpm(options.initialValue, options.range);

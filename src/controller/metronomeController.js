@@ -1,15 +1,15 @@
-import appBeat from "../application/appBeat";
-import appBpm from "../application/appBpm";
-import appDuration from "../application/appDuration";
-import appUpbeatSample from "../application/appUpbeatSample";
-import appDownbeatSample from "../application/appDownbeatSample";
-import appSequencer from "../application/appSequencer";
+import appBeat from "../application/metronome/appBeat";
+import appBpm from "../application/metronome/appBpm";
+import appDuration from "../application/metronome/appDuration";
+import appUpbeatSample from "../application/metronome/appUpbeatSample";
+import appDownbeatSample from "../application/metronome/appDownbeatSample";
+import appSequencer from "../application/metronome/appSequencer";
 import webAudioSequencer from "../services/webSequencer/webAudioSequencer";
-import appVoiceControl from "../application/appVoiceControl";
+import appVoiceControl from "../application/metronome/appVoiceControl";
 import webSpeechRecognition from "../services/webSpeechRecognition/webSpeechRecognition";
 import webStorage from "../services/storage/webStorage";
 import localStorageAdapter from "../services/storage/localStorageAdapter";
-import appStorage from "../application/appStorage";
+import appStorage from "../application/metronome/appStorage";
 
 const metronomeController = (metronomeOptions) => {
     const beat = appBeat(metronomeOptions.beat);

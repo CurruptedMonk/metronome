@@ -1,6 +1,6 @@
 import createSubscriberKeys from "./createSubscriberKeys";
-import debounce from "../lib/debounce";
-import partial from "../lib/partial";
+import debounce from "../../lib/debounce";
+import partial from "../../lib/partial";
 
 const appStorage = (storage, entities) => {
     const DEBOUNCE_TIMEOUT_MS = 600;

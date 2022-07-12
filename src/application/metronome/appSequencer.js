@@ -1,5 +1,5 @@
 import createSubscriberKeys from "./createSubscriberKeys";
-import partial from "../lib/partial";
+import partial from "../../lib/partial";
 
 const appSequencer = (sequencer, entities) => {
     const subscriberKeys = createSubscriberKeys(entities);

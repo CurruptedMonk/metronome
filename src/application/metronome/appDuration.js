@@ -1,5 +1,5 @@
-import createDuration from "../domain/metronome/derivedEntities/duration/createDuration";
-import VALIDATION_STATUS from "../domain/metronome/entity/VALIDATION_STATUS";
+import createDuration from "../../domain/metronome/derivedEntities/duration/createDuration";
+import VALIDATION_STATUS from "../../domain/metronome/entity/VALIDATION_STATUS";
 
 const appDuration = (options) => {
     const duration = createDuration(options.initialValue, options.available);

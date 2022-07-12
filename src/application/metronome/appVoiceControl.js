@@ -1,4 +1,4 @@
-import commandExecutor from "../services/webSpeechRecognition/commandExecutor";
+import commandExecutor from "../../services/webSpeechRecognition/commandExecutor";
 
 const appVoiceControl = (speechRecognition, {sequencer, bpm}) => {
     const executor = commandExecutor(sequencer, bpm, speechRecognition.turnOff);
