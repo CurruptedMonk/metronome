@@ -1,11 +1,11 @@
-import createSample from "../domain/derivedEntities/sample/createSample";
-import VALIDATION_STATUS from "../domain/entity/VALIDATION_STATUS";
+import createSample from "../domain/metronome/derivedEntities/sample/createSample";
+import VALIDATION_STATUS from "../domain/metronome/entity/VALIDATION_STATUS";
 
-const appUpbeatSample = (options) => {
+const appDownbeatSample = (options) => {
     const sample = createSample(options.initialValue, options.available);
 
     const set = (value) => {
-        if (sample.checker(value) === VALIDATION_STATUS.PASSED) {
+        if(sample.checker(value) === VALIDATION_STATUS.PASSED) {
             sample.set(value);
         }
     };
@@ -25,4 +25,4 @@ const appUpbeatSample = (options) => {
     });
 };
 
-export default appUpbeatSample;
+export default appDownbeatSample;

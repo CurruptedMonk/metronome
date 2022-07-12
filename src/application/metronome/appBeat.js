@@ -1,5 +1,5 @@
-import createBeat from "../domain/derivedEntities/beat/createBeat";
-import VALIDATION_STATUS from "../domain/entity/VALIDATION_STATUS";
+import createBeat from "../domain/metronome/derivedEntities/beat/createBeat";
+import VALIDATION_STATUS from "../domain/metronome/entity/VALIDATION_STATUS";
 
 const appBeat = (options) => {
     const beat = createBeat(options.initialValue, options.range);
