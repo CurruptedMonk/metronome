@@ -2,7 +2,7 @@ import createEntity from "./createEntity";
 import ENTITY_TYPE from "./ENTITY_TYPE";
 import RANGE_ENTITY_INTERFACE from "./range/RANGE_ENTITY_INTERFACE";
 import SETTABLE_ENTITY_INTERFACE from "./settable/SETTABLE_ENTITY_INTERFACE";
-import VALIDATION_STATUS from "../entity/VALIDATION_STATUS";
+import VALIDATION_STATUS from "./VALIDATION_STATUS";
 
 describe("createEntity", () => {
     const initialValue = 1;

@@ -1,4 +1,4 @@
-import createObserver from "../../../lib/createObserver";
+import createObserver from "../../../../lib/createObserver";
 import VALIDATION_STATUS from "../VALIDATION_STATUS";
 
 const settableEntity = (initialValue, checker) => {
