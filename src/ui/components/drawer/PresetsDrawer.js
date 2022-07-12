@@ -2,12 +2,12 @@ import React, {useState} from "react";
 import Button from "../button/Button";
 import {Drawer} from "antd";
 import CreateNewPresetModal from "../modal/CreateNewPresetModal";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import Preset from "./Preset";
+import useSubscribe from "../../hooks/useSubscribe";
 
-const PresetsDrawer = () => {
+const PresetsDrawer = ({presets}) => {
     const [visible, setVisible] = useState(false);
-    const [presets, setPreset] = useState(new Set(["base", "tremolo"]));
+    const [presetNames] = useSubscribe(presets);
 
     const onShow = () => {
         setVisible(true);
@@ -15,14 +15,6 @@ const PresetsDrawer = () => {
 
     const onClose = () => {
         setVisible(false);
-    };
-
-    const addNewPreset = (newPreset) => {
-        setPreset(prev => new Set([...prev, newPreset]));
-    };
-
-    const deletePreset = (preset) => {
-        setPreset(prev => new Set([...prev].filter(item => item !== preset)));
     };
 
     return (
@@ -34,10 +26,10 @@ const PresetsDrawer = () => {
                 size="default"
                 onClose={onClose}
                 visible={visible}
-                extra={<CreateNewPresetModal addNewPreset={addNewPreset} presets={presets}/>}
+                extra={<CreateNewPresetModal addNewPreset={presets.add} presets={presets}/>}
             >
-                {[...presets].map((preset, index) =>
-                    <Preset key={index} name={preset} onDelete={() => deletePreset(preset)}/>
+                {presetNames?.map((name, index) =>
+                    <Preset key={index} name={name} onDelete={() => presets.remove(name)}/>
                 )}
             </Drawer>
         </>
