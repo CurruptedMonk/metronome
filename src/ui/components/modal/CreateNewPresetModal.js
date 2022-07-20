@@ -2,7 +2,7 @@ import {useState} from "react";
 import Button from "../button/Button";
 import {Input, Modal} from "antd";
 
-const CreateNewPresetModal = ({addNewPreset, presets}) => {
+const CreateNewPresetModal = ({presetController}) => {
     const [visible, setVisible] = useState(false);
     const [newPreset, setNewPreset] = useState("");
 
@@ -16,12 +16,12 @@ const CreateNewPresetModal = ({addNewPreset, presets}) => {
     };
 
     const onSave = () => {
-        addNewPreset(newPreset);
+        presetController.add(newPreset);
         setNewPreset("");
         onClose();
     };
 
-    const isValid = !presets.has(newPreset);
+    const isValid = !presetController.has(newPreset);
 
     return (
         <>
