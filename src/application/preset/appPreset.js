@@ -16,7 +16,7 @@ const appPreset = () => {
     };
 
     const rename = (oldPreset, newPreset) => {
-        if(!has(newPreset)) {
+        if(!has(newPreset) && oldPreset !== newPreset) {
             remove(oldPreset);
             add(newPreset);
         }
