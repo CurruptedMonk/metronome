@@ -5,9 +5,9 @@ import CreateNewPresetModal from "../modal/CreateNewPresetModal";
 import Preset from "./Preset";
 import useSubscribe from "../../hooks/useSubscribe";
 
-const PresetsDrawer = ({presets}) => {
+const PresetsDrawer = ({presetController}) => {
     const [visible, setVisible] = useState(false);
-    const [presetNames] = useSubscribe(presets);
+    const [presetNames] = useSubscribe(presetController);
 
     const onShow = () => {
         setVisible(true);
@@ -26,10 +26,15 @@ const PresetsDrawer = ({presets}) => {
                 size="default"
                 onClose={onClose}
                 visible={visible}
-                extra={<CreateNewPresetModal addNewPreset={presets.add} presets={presets}/>}
+                extra={<CreateNewPresetModal presetController={presetController}/>}
             >
-                {presetNames?.map((name, index) =>
-                    <Preset key={index} name={name} onDelete={() => presets.remove(name)}/>
+                {presetNames?.map((name) =>
+                    <Preset
+                        key={name}
+                        name={name}
+                        presetController={presetController}
+                        presetNames={presetNames}
+                    />
                 )}
             </Drawer>
         </>

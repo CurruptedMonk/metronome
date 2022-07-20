@@ -1,20 +1,16 @@
 import React from "react";
-import Button from "../button/Button";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import EditPresetNameModal from "../modal/EditPresetNameModal";
+import DeletePresetModal from "../modal/DeletePresetModal";
 
-const Preset = ({name, onDelete}) => {
+const Preset = ({name, presetController, presetNames}) => {
     return (
         <div style={{display:"flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid black", marginBottom:".5rem"}}>
             <span>{name}</span>
             <div>
-                <Button
-                    type="default"
-                    icon={<DeleteOutlined />}
-                    onClick={onDelete}
-                />
+                <EditPresetNameModal name={name} presetNames={presetNames} editPreset={presetController.rename}/>
+                <DeletePresetModal presetName={name} deletePreset={presetController.remove}/>
             </div>
         </div>
     );
 };
-
 export default Preset;
