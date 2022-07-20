@@ -2,7 +2,7 @@ import Select from "./Select";
 import useSubscribe from "../../hooks/useSubscribe";
 
 const NamedSelect = ({ name, controller, available }) => {
-    const [currentValue] = useSubscribe(controller);
+    const [currentValue] = useSubscribe(controller.subscribe, controller.unsubscribe);
 
     return (
         <div className="select-wrapper ">

@@ -3,7 +3,7 @@ import { Slider } from "antd";
 import useSubscribe from "../../hooks/useSubscribe";
 
 const SubscribedSlider = ({ controller, ...props }) => {
-    const [value] = useSubscribe(controller);
+    const [value] = useSubscribe(controller.subscribe, controller.unsubscribe);
 
     return (
         <Slider

@@ -3,7 +3,7 @@ import { Radio } from "antd";
 import useSubscribe from "../../hooks/useSubscribe";
 
 const SubscribedImagedRadio = ({ controller, available }) => {
-    const [duration] = useSubscribe(controller);
+    const [duration] = useSubscribe(controller.subscribe, controller.unsubscribe);
 
     return (
         <>

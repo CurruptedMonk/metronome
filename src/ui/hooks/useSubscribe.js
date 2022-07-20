@@ -1,17 +1,17 @@
 import {useEffect, useState} from "react";
 
-const useSubscribe = (entityController, isNeededInitialData=true) => {
+const useSubscribe = (subscribe,unsubscribe, isNeededInitialData=true) => {
 
     const [entityValue, setEntityValue] = useState(null);
 
     useEffect(() => {
         const subscriberKey = Symbol();
-        entityController.subscribe(subscriberKey, setEntityValue, isNeededInitialData);
+        subscribe(subscriberKey, setEntityValue, isNeededInitialData);
 
         return () => {
-            entityController.unsubscribe(subscriberKey);
+            unsubscribe(subscriberKey);
         };
-    }, [entityController]);
+    }, [subscribe, unsubscribe]);
 
     return [entityValue];
 };
