@@ -1,8 +1,8 @@
 import React from "react"
 import useSubscribe from "../../hooks/useSubscribe";
 
-const SubscribedValue = ({ controller, ...props }) => {
-    const [value] = useSubscribe(controller.subscribe, controller.unsubscribe);
+const SubscribedValue = ({ subscribe, unsubscribe, ...props }) => {
+    const [value] = useSubscribe(subscribe, unsubscribe);
 
     return <span {...props}>{value}</span>;
 };

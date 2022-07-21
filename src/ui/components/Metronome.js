@@ -23,13 +23,13 @@ const Metronome = ({ controller, options }) => {
         <>
             <div className="wrapper tempo">
                 <div>
-                    <SubscribedValue controller={bpm} />
+                    <SubscribedValue subscribe={bpm.subscribe} unsubscribe={bpm.unsubscribe}/>
                     {" BPM"}
                 </div>
                 <div>
-                    <SubscribedValue controller={beat} />
+                    <SubscribedValue subscribe={beat.subscribe} unsubscribe={beat.unsubscribe} />
                     /
-                    <SubscribedValue controller={duration} />
+                    <SubscribedValue subscribe={duration.subscribe} unsubscribe={duration.unsubscribe} />
                 </div>
             </div>
 
@@ -85,7 +85,8 @@ const Metronome = ({ controller, options }) => {
                         shape="circle"
                     />
                     <SubscribedValue
-                        controller={beat}
+                        subscribe={beat.subscribe}
+                        unsubscribe={beat.unsubscribe}
                         className="text-medium small-side-margins"
                     />
                     <IncreaseButton
