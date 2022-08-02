@@ -2,11 +2,15 @@ import createObserver from "../../lib/createObserver";
 
 const presetCollection = (defaultPresets= []) => {
     const observer = createObserver();
-    const available = new Set([...defaultPresets]);
+    let available = new Set([...defaultPresets]);
 
     const add = (preset) => {
         available.add(preset);
         observer.notify([...available]);
+    };
+
+    const getFirst = () => {
+        if (available.size > 0) return [...available][0];
     };
 
     const remove = (preset) => {
@@ -16,6 +20,16 @@ const presetCollection = (defaultPresets= []) => {
 
     const has = (preset) => {
         return available.has(preset);
+    };
+
+    const edit = (oldValue, newValue) => {
+        if(!has(newValue) && oldValue !== newValue)  {
+            const collection = [...available];
+            const index = collection.indexOf(oldValue);
+            if (index !== -1) collection[index] = newValue;
+            available = new Set([...collection]);
+            observer.notify([...available]);
+        }
     };
 
     const subscribe = (key, getUpdateCallback, isNeedValueForInit = false) => {
@@ -33,6 +47,8 @@ const presetCollection = (defaultPresets= []) => {
         add,
         remove,
         has,
+        edit,
+        getFirst,
         subscribe,
         unsubscribe,
     });

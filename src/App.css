@@ -52,6 +52,7 @@ h1.ant-typography span {
     flex-direction: column;
     font-size: 2rem;
     margin: 1rem auto 0.3rem;
+    width: 100%;
 }
 
 .launcher {
@@ -102,6 +103,12 @@ h1.ant-typography span {
 
 .invisible {
     opacity: 0;
+}
+
+.preset {
+    width: 100%;
+    height: auto;
+    margin-bottom: .4rem;
 }
 
 @media (max-width: 500px) {

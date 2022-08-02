@@ -5,7 +5,7 @@ import SubscribedImagedRadio from "./radio/SubscribedImagedRadio";
 import NamedSelect from "./select/NamedSelect";
 import SubscribedValue from "./value/SubscribedValue";
 
-const Metronome = ({ controller, options }) => {
+const Metronome = ({ controller, options, presetController }) => {
     const {
         bpm,
         beat,
@@ -21,7 +21,11 @@ const Metronome = ({ controller, options }) => {
 
     return (
         <>
-            <div className="wrapper tempo">
+            <div className="wrapper tempo" >
+                <div className="wrapper" style={{maxWidth: "300px", flexWrap: "wrap"}}>
+                    Preset:&nbsp;
+                    <SubscribedValue style={{wordBreak: "break-all"}} subscribe={presetController.subscribeToValue} unsubscribe={presetController.unsubscribeFromValue}/>
+                </div>
                 <div>
                     <SubscribedValue subscribe={bpm.subscribe} unsubscribe={bpm.unsubscribe}/>
                     {" BPM"}

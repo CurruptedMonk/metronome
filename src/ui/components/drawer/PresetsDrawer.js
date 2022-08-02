@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import Button from "../button/Button";
-import {Drawer} from "antd";
+import {Drawer, Radio} from "antd";
 import CreateNewPresetModal from "../modal/CreateNewPresetModal";
 import Preset from "./Preset";
 import useSubscribe from "../../hooks/useSubscribe";
 
 const PresetsDrawer = ({presetController}) => {
     const [visible, setVisible] = useState(false);
-    const [presetNames] = useSubscribe(presetController);
+    const [presetNames] = useSubscribe(presetController.subscribeToCollection, presetController.unsubscribeFromCollection);
+    const [currentPreset] = useSubscribe(presetController.subscribeToValue, presetController.unsubscribeFromValue);
 
     const onShow = () => {
         setVisible(true);
@@ -28,13 +29,22 @@ const PresetsDrawer = ({presetController}) => {
                 visible={visible}
                 extra={<CreateNewPresetModal presetController={presetController}/>}
             >
+
                 {presetNames?.map((name) =>
-                    <Preset
+                    <Radio.Button
+                        className="preset"
+                        checked={name === currentPreset}
                         key={name}
-                        name={name}
-                        presetController={presetController}
-                        presetNames={presetNames}
-                    />
+                        value={name}
+                        onChange={() => presetController.set(name)}
+                    >
+                        <Preset
+                            key={name}
+                            name={name}
+                            presetController={presetController}
+                            presetNames={presetNames}
+                        />
+                    </Radio.Button>
                 )}
             </Drawer>
         </>

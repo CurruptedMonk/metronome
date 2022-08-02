@@ -7,7 +7,7 @@ const CheckboxedButtonDecorator = ({
     activeProps,
     notActiveProps,
 }) => {
-    const [isActive] = useSubscribe(controller);
+    const [isActive] = useSubscribe(controller.subscribe, controller.unsubscribe);
     const checkboxedProps = isActive ? activeProps : notActiveProps;
 
     return React.cloneElement(Component, {
