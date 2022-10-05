@@ -1,7 +1,7 @@
 import createSubscriberKeys from "./createSubscriberKeys";
-import partial from "../../lib/partial";
+import partial from "../lib/partial";
 
-const appSequencer = (sequencer, entities) => {
+const sequencerUseCases = (sequencer, entities) => {
     const subscriberKeys = createSubscriberKeys(entities);
     for (const [name, entity] of Object.entries(entities)) {
         entity.subscribe(subscriberKeys[name], partial(sequencer.set, name), true);
@@ -36,4 +36,4 @@ const appSequencer = (sequencer, entities) => {
     });
 };
 
-export default appSequencer;
+export default sequencerUseCases;

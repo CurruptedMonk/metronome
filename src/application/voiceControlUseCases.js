@@ -1,6 +1,6 @@
-import commandExecutor from "../../services/webSpeechRecognition/commandExecutor";
+import commandExecutor from "../services/webSpeechRecognition/commandExecutor";
 
-const appVoiceControl = (speechRecognition, {sequencer, bpm}) => {
+const voiceControlUseCases = (speechRecognition, {sequencer, bpm}) => {
     const executor = commandExecutor(sequencer, bpm, speechRecognition.turnOff);
     const executorSubscriberKey = Symbol();
     speechRecognition.subscribeToResult(executorSubscriberKey, executor.execute);
@@ -24,4 +24,4 @@ const appVoiceControl = (speechRecognition, {sequencer, bpm}) => {
     });
 };
 
-export default appVoiceControl;
+export default voiceControlUseCases;

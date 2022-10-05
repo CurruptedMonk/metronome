@@ -1,8 +1,8 @@
 import createSubscriberKeys from "./createSubscriberKeys";
-import debounce from "../../lib/debounce";
-import partial from "../../lib/partial";
+import debounce from "../lib/debounce";
+import partial from "../lib/partial";
 
-const appStorage = (storage, entities) => {
+const storageUseCases = (storage, entities) => {
     const DEBOUNCE_TIMEOUT_MS = 600;
     const subscriberKeys = createSubscriberKeys(entities);
     const preset = {};
@@ -45,4 +45,4 @@ const appStorage = (storage, entities) => {
     });
 };
 
-export default appStorage;
+export default storageUseCases;

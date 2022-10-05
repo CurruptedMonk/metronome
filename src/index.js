@@ -4,12 +4,11 @@ import './index.css';
 import App from './App';
 import metronomeController from "./controller/metronomeController";
 import metronomeOptions from "./metronomeOptions";
-import appPreset from "./application/preset/appPreset";
 
 
 const controller = metronomeController(metronomeOptions);
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const preset = appPreset();
+const preset = {};
 
 root.render(
   <React.StrictMode>
