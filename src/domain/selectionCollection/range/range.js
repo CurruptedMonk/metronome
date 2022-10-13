@@ -5,15 +5,15 @@ const range = ({from, to}) => {
         return number >= from && number <= to;
     };
 
-    const valueValidation = (number) => {
+    const valueValidationStatus = (number) => {
         if (!Number.isInteger(number)) return RANGE_VALIDATION_STATUS.FAILED.INVALID;
         if (isIncluding(number)) return RANGE_VALIDATION_STATUS.PASSED;
-        if (number < range.from) return RANGE_VALIDATION_STATUS.FAILED.LESS_RANGE;
-        if (number > range.to) return RANGE_VALIDATION_STATUS.FAILED.MORE_RANGE;
+        if (number < from) return RANGE_VALIDATION_STATUS.FAILED.LESS_RANGE;
+        if (number > to) return RANGE_VALIDATION_STATUS.FAILED.MORE_RANGE;
     }
 
     return Object.freeze({
-        valueValidation,
+        valueValidationStatus,
         from,
         to
     });

@@ -3,45 +3,45 @@ import rangeEntity from "../domain/entity/rangeEntity/rangeEntity";
 
 const rangeEntityUseCases = (options) => {
     const entityRange = range(options.range);
-    if (!entityRange.valueValidation(options.initialValue) === RANGE_VALIDATION_STATUS.PASSED) {
+    if (!entityRange.valueValidationStatus(options.initialValue) === RANGE_VALIDATION_STATUS.PASSED) {
         throw new Error("Invalid initial value was passed");
     }
     const entity = rangeEntity(options.initialValue);
 
-    const strategy = (action, value, validationStatus) => {
-        const possibleOptions = {
-            [RANGE_VALIDATION_STATUS.PASSED]: () => action(value),
-            [RANGE_VALIDATION_STATUS.FAILED.LESS_RANGE]: () => action(options.range.from),
-            [RANGE_VALIDATION_STATUS.FAILED.MORE_RANGE]: () => action(options.range.to),
-            [RANGE_VALIDATION_STATUS.FAILED.INVALID]: () => throw new Error("Invalid value was passed"),
+    const set = (value) => {
+        const strategy = {
+            [RANGE_VALIDATION_STATUS.PASSED]: () => entity.set(value),
+            [RANGE_VALIDATION_STATUS.FAILED.LESS_RANGE]: () => entity.set(options.range.from),
+            [RANGE_VALIDATION_STATUS.FAILED.MORE_RANGE]: () => entity.set(options.range.to),
+            [RANGE_VALIDATION_STATUS.FAILED.INVALID]: () => throw new Error("Trying to set invalid value"),
         };
 
-        const optionKey = validationStatus(value);
-        possibleOptions[optionKey]();
-    };
-
-    const set = (value) => {
-        strategy(
-            entity.set,
-            value,
-            entityRange.valueValidation(value)
-        );
+        const validationStatus = entityRange.valueValidationStatus(value);
+        strategy[validationStatus]();
     };
 
     const increaseBy = (step) => {
-        strategy(
-            entity.increaseBy,
-            step,
-            entity.increaseStepValidation(step, entityRange.valueValidation)
-        );
+        const strategy = {
+            [RANGE_VALIDATION_STATUS.PASSED]: () => entity.increaseBy(step),
+            [RANGE_VALIDATION_STATUS.FAILED.LESS_RANGE]: () => entity.set(options.range.from),
+            [RANGE_VALIDATION_STATUS.FAILED.MORE_RANGE]: () => entity.set(options.range.to),
+            [RANGE_VALIDATION_STATUS.FAILED.INVALID]: () => throw new Error("Trying to increase by invalid value"),
+        };
+
+        const validationStatus = entity.increaseStepValidationStatus(step, entityRange.valueValidationStatus);
+        strategy[validationStatus]();
     };
 
     const decreaseBy = (step) => {
-        strategy(
-            entity.decreaseBy,
-            step,
-            entity.decreaseStepValidation(step, entityRange.valueValidation)
-        );
+        const strategy = {
+            [RANGE_VALIDATION_STATUS.PASSED]: () => entity.decreaseBy(step),
+            [RANGE_VALIDATION_STATUS.FAILED.LESS_RANGE]: () => entity.set(options.range.from),
+            [RANGE_VALIDATION_STATUS.FAILED.MORE_RANGE]: () => entity.set(options.range.to),
+            [RANGE_VALIDATION_STATUS.FAILED.INVALID]: () => throw new Error("Trying to decrease by invalid value"),
+        };
+
+        const validationStatus = entity.decreaseStepValidationStatus(step, entityRange.valueValidationStatus);
+        strategy[validationStatus]();
     };
 
     const subscribe = (key, updateCallback, immediateCallbackCall) => {

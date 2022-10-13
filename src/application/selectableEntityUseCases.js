@@ -35,11 +35,11 @@ const selectableEntityUseCases = (isChangeableCollection, options) => {
         collection.rename(oldValue, newValue);
     };
 
-    const subscribeToValue = (key, updateCallback, immediateCallbackCall) => {
+    const subscribe = (key, updateCallback, immediateCallbackCall) => {
         entity.subscribe(key, updateCallback, immediateCallbackCall);
     };
 
-    const unsubscribeFromValue = (key) => {
+    const unsubscribe = (key) => {
         entity.unsubscribe(key);
     };
 
@@ -53,8 +53,8 @@ const selectableEntityUseCases = (isChangeableCollection, options) => {
 
     const immutableCollectionApi = {
         set,
-        subscribeToValue,
-        unsubscribeFromValue
+        subscribe,
+        unsubscribe
     };
 
     const changeableCollectionApi = {

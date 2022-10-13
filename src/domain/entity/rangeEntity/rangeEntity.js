@@ -16,12 +16,12 @@ const rangeEntity = (initialValue) => {
         set(value - step);
     };
 
-    const increaseStepValidation = (step, valueValidation) => {
-        return valueValidation(value + step);
+    const increaseStepValidationStatus = (step, valueValidationStatus) => {
+        return valueValidationStatus(value + step);
     };
 
-    const decreaseStepValidation = (step, valueValidation) => {
-        return valueValidation(value - step);
+    const decreaseStepValidationStatus = (step, valueValidationStatus) => {
+        return valueValidationStatus(value - step);
     };
 
     return Object.freeze({
@@ -30,8 +30,8 @@ const rangeEntity = (initialValue) => {
         decreaseBy,
         subscribe,
         unsubscribe,
-        increaseStepValidation,
-        decreaseStepValidation
+        increaseStepValidationStatus,
+        decreaseStepValidationStatus
     });
 };
 
