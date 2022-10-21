@@ -12,10 +12,16 @@ const range = ({from, to}) => {
         if (number > to) return RANGE_VALIDATION_STATUS.FAILED.MORE_RANGE;
     }
 
+    const getRange = () => {
+        return {
+            from,
+            to
+        };
+    };
+
     return Object.freeze({
         valueValidationStatus,
-        from,
-        to
+        getRange
     });
 };
 

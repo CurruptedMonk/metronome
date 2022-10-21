@@ -56,6 +56,7 @@ const available = (defaultValues) => {
         remove,
         has,
         rename,
+        isEmpty,
         getFirst,
         subscribe,
         unsubscribe
