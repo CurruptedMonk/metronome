@@ -1,7 +1,7 @@
 import { Select as AntdSelect } from "antd";
 
 const Select = ({
-    controller,
+    set,
     available,
     currentValue,
 }) => {
@@ -10,10 +10,11 @@ const Select = ({
             className="select"
             value={currentValue}
             onChange={(value) => {
-                controller.set(value);
+                set(value);
             }}
+            placeholder="none"
         >
-            {available.map((value) => (
+            {available?.map((value) => (
                 <AntdSelect.Option key={value}>
                     {value}
                 </AntdSelect.Option>
