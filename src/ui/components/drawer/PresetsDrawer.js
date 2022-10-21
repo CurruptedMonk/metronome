@@ -8,7 +8,7 @@ import useSubscribe from "../../hooks/useSubscribe";
 const PresetsDrawer = ({presetController}) => {
     const [visible, setVisible] = useState(false);
     const [presetNames] = useSubscribe(presetController.subscribeToCollection, presetController.unsubscribeFromCollection);
-    const [currentPreset] = useSubscribe(presetController.subscribeToValue, presetController.unsubscribeFromValue);
+    const [currentPreset] = useSubscribe(presetController.subscribe, presetController.unsubscribe);
 
     const onShow = () => {
         setVisible(true);

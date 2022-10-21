@@ -22,7 +22,7 @@ function App({ controller, options, preset }) {
                     <Title>
                         Metronome <span>With voice control</span>
                     </Title>
-                    <PresetsDrawer presetController={preset}/>
+                    <PresetsDrawer presetController={controller.preset}/>
                 </Header>
                 <Content>
                     <Metronome controller={controller} options={options} presetController={preset}/>

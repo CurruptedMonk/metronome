@@ -3,7 +3,7 @@ import selectableEntity from "../domain/entity/selectableEntity/selectableEntity
 
 const selectableEntityUseCases = (isChangeableCollection, options) => {
     const collection = available(options.available);
-    if (!collection.has(options.initialValue)) {
+    if (!collection.isEmpty() && !collection.has(options.initialValue)) {
         throw new Error("Invalid initial value was passed");
     }
     const entity = selectableEntity(options.initialValue);
@@ -54,7 +54,9 @@ const selectableEntityUseCases = (isChangeableCollection, options) => {
     const immutableCollectionApi = {
         set,
         subscribe,
-        unsubscribe
+        unsubscribe,
+        subscribeToCollection,
+        unsubscribeFromCollection
     };
 
     const changeableCollectionApi = {
@@ -63,8 +65,6 @@ const selectableEntityUseCases = (isChangeableCollection, options) => {
         remove,
         has,
         rename,
-        subscribeToCollection,
-        unsubscribeFromCollection
     };
 
     return Object.freeze(

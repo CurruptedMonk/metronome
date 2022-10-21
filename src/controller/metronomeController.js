@@ -14,6 +14,7 @@ const metronomeController = (metronomeOptions) => {
     const duration =  selectableEntityUseCases(false, metronomeOptions.duration);
     const upbeatSample =  selectableEntityUseCases(false, metronomeOptions.sample.upbeat);
     const downbeatSample = selectableEntityUseCases(false, metronomeOptions.sample.downbeat);
+    const preset = selectableEntityUseCases(true, {available: [], initialValue: null});
 
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const sequencer = sequencerUseCases(webAudioSequencer(audioContext, metronomeOptions.sample.list), {
@@ -40,6 +41,7 @@ const metronomeController = (metronomeOptions) => {
         duration,
         upbeatSample,
         downbeatSample,
+        preset,
         sequencer,
         voiceControl,
         storage
