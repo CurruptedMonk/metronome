@@ -8,6 +8,9 @@ const selectableEntityUseCases = (isChangeableCollection, options) => {
     }
     const entity = selectableEntity(options.initialValue);
 
+    let current;
+    entity.subscribe(Symbol(), (value) => current = value, true);
+
     const set = (value) => {
         if (has(value)) {
             entity.set(value);
@@ -21,9 +24,12 @@ const selectableEntityUseCases = (isChangeableCollection, options) => {
 
     const remove = (value) => {
         collection.remove(value);
-        const first = collection.getFirst();
-        if(first) {
-            set(first);
+        if(collection.isEmpty()) {
+            entity.set(null);
+            return;
+        }
+        if(current === value) {
+            set(collection.getFirst());
         }
     };
 
@@ -33,6 +39,7 @@ const selectableEntityUseCases = (isChangeableCollection, options) => {
 
     const rename = (oldValue, newValue) => {
         collection.rename(oldValue, newValue);
+        if(current === oldValue) set(newValue);
     };
 
     const subscribe = (key, updateCallback, immediateCallbackCall) => {
