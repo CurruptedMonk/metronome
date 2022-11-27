@@ -7,9 +7,14 @@ const localStorageAdapter = () => {
         return JSON.parse(localStorage.getItem(key));
     };
 
+    const remove = (key) => {
+        localStorage.removeItem(key);
+    };
+
     return Object.freeze({
         set,
-        get
+        get,
+        remove
     });
 };
 

@@ -1,47 +1,25 @@
-import createSubscriberKeys from "./createSubscriberKeys";
 import debounce from "../lib/debounce";
-import partial from "../lib/partial";
 
-const storageUseCases = (storage, entities) => {
+const storageUseCases = (storage) => {
     const DEBOUNCE_TIMEOUT_MS = 600;
-    const subscriberKeys = createSubscriberKeys(entities);
-    const preset = {};
-    let presetName = "base";
 
     const save = (key, value) => {
-        preset[key] = value;
-        debounce(
-            storage.save(presetName, preset),
-            DEBOUNCE_TIMEOUT_MS
-        );
+        const save = debounce(storage.save, DEBOUNCE_TIMEOUT_MS);
+        save(key, value);
     };
 
-    const subscribeToEntitiesUpdates = (entities, callback) => {
-        for (const [key, entity] of Object.entries(entities)) {
-            entity.subscribe(
-                subscriberKeys[key],
-                partial(callback, key)
-            );
-        }
-    }
-
-    const setPresetName = (name) => {
-        presetName = name;
-        storage.save(presetName, preset)
+    const remove = (key) => {
+        storage.remove(key);
     };
 
-    const downloadSettings = async () => {
-        const values = await storage.download(presetName);
-        for (const [key, value] of Object.entries(values)) {
-            entities[key].set(value);
-        }
+    const download = (key) => {
+        return storage.download(key);
     };
-
-    subscribeToEntitiesUpdates(entities, save);
 
     return Object.freeze({
-        downloadSettings,
-        setPresetName
+        save,
+        remove,
+        download
     });
 };
 
