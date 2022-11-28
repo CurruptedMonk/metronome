@@ -1,7 +1,40 @@
 import selectableEntityUseCases from "./selectableEntityUseCases";
 
-const presetUseCases = (options) => {
-    const preset = selectableEntityUseCases(true, options);
+const presetUseCases = (options, storage) => {
+    const presetName = {
+        current: storage.download("current_preset_name") || options.initialValue
+    };
+
+    const presetCollection = {
+        current: storage.download("preset_collection") || options.available
+    };
+
+    const preset = selectableEntityUseCases(
+        true,
+        {
+            available: presetCollection.current,
+            initialValue:presetName.current
+        }
+    );
+
+    const presetNameProxy = new Proxy(presetName, {
+        set: function(target, property, value) {
+            target[property] = value;
+            storage.save("current_preset_name", value);
+            return true;
+        }
+    });
+
+    const presetCollectionProxy = new Proxy(presetCollection, {
+        set: function(target, property, value) {
+            target[property] = value;
+            storage.save("preset_collection", value);
+            return true;
+        }
+    });
+
+    preset.subscribe(Symbol(), (value) => presetNameProxy.current = value);
+    preset.subscribeToCollection(Symbol(), (collection) => presetCollectionProxy.current = collection);
 
     const set = (value) => {
         preset.set(value);
