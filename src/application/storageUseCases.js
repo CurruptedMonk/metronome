@@ -2,10 +2,10 @@ import debounce from "../lib/debounce";
 
 const storageUseCases = (storage) => {
     const DEBOUNCE_TIMEOUT_MS = 600;
+    const debouncedSave = debounce(storage.save, DEBOUNCE_TIMEOUT_MS);
 
     const save = (key, value) => {
-        const save = debounce(storage.save, DEBOUNCE_TIMEOUT_MS);
-        save(key, value);
+        debouncedSave(key, value);
     };
 
     const remove = (key) => {
