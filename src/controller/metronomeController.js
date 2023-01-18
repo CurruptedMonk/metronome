@@ -4,17 +4,22 @@ import voiceControlUseCases from "../application/voiceControlUseCases";
 import webSpeechRecognition from "../services/webSpeechRecognition/webSpeechRecognition";
 import presetUseCases from "../application/presetUseCases";
 import metronomeUseCases from "../application/metronomeUseCases";
-import storageUseCases from "../application/storageUseCases";
 import syncWebStorage from "../services/storage/syncWebStorage";
 import localStorageAdapter from "../services/storage/localStorageAdapter";
 
 const metronomeController = (metronomeOptions) => {
-    const storage = storageUseCases(syncWebStorage(localStorageAdapter()));
-    const metronome = metronomeUseCases(metronomeOptions);
+    const storage = syncWebStorage(localStorageAdapter());
     const preset = presetUseCases( {available: [], initialValue: null}, storage);
+    const metronome = metronomeUseCases(metronomeOptions, storage, preset);
 
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const sequencer = sequencerUseCases(webAudioSequencer(audioContext, metronomeOptions.sample.list),metronome);
+    const sequencer = sequencerUseCases(webAudioSequencer(audioContext, metronomeOptions.sample.list), {
+        beat: metronome.beat,
+        bpm: metronome.bpm,
+        duration: metronome.duration,
+        upbeatSample: metronome.upbeatSample,
+        downbeatSample: metronome.downbeatSample
+    });
 
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     const speechRecognitionList = new (window.SpeechGrammarList || window.webkitSpeechGrammarList)();

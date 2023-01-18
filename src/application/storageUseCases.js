@@ -1,18 +1,15 @@
-import debounce from "../lib/debounce";
 
-const storageUseCases = (storage) => {
-    const DEBOUNCE_TIMEOUT_MS = 600;
-    const debouncedSave = debounce(storage.save, DEBOUNCE_TIMEOUT_MS);
+const storageUseCases = (storage, key) => {
 
-    const save = (key, value) => {
-        debouncedSave(key, value);
+    const save = (value) => {
+        storage.save(key, value);
     };
 
-    const remove = (key) => {
+    const remove = () => {
         storage.remove(key);
     };
 
-    const download = (key) => {
+    const download = () => {
         return storage.download(key);
     };
 

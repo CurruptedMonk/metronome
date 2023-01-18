@@ -1,40 +1,24 @@
 import selectableEntityUseCases from "./selectableEntityUseCases";
+import debounce from "../lib/debounce";
+import storageUseCases from "./storageUseCases";
 
 const presetUseCases = (options, storage) => {
-    const presetName = {
-        current: storage.download("current_preset_name") || options.initialValue
-    };
-
-    const presetCollection = {
-        current: storage.download("preset_collection") || options.available
-    };
+    const DEBOUNCE_TIMEOUT_MS = 600;
+    const currentPresetNameStorage = storageUseCases(storage,"current_preset_name");
+    const presetCollectionStorage = storageUseCases(storage,"preset_collection");
+    const saveCurrentPresetName = debounce(currentPresetNameStorage.save, DEBOUNCE_TIMEOUT_MS);
+    const savePresetCollection = debounce(presetCollectionStorage.save, DEBOUNCE_TIMEOUT_MS);
 
     const preset = selectableEntityUseCases(
         true,
         {
-            available: presetCollection.current,
-            initialValue:presetName.current
+            available: presetCollectionStorage.download() || options.available,
+            initialValue:currentPresetNameStorage.download() || options.initialValue
         }
     );
 
-    const presetNameProxy = new Proxy(presetName, {
-        set: function(target, property, value) {
-            target[property] = value;
-            storage.save("current_preset_name", value);
-            return true;
-        }
-    });
-
-    const presetCollectionProxy = new Proxy(presetCollection, {
-        set: function(target, property, value) {
-            target[property] = value;
-            storage.save("preset_collection", value);
-            return true;
-        }
-    });
-
-    preset.subscribe(Symbol(), (value) => presetNameProxy.current = value);
-    preset.subscribeToCollection(Symbol(), (collection) => presetCollectionProxy.current = collection);
+    preset.subscribe(Symbol(), (presetName) => saveCurrentPresetName(presetName));
+    preset.subscribeToCollection(Symbol(), (collection) => savePresetCollection(collection));
 
     const set = (value) => {
         preset.set(value);

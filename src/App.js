@@ -10,7 +10,6 @@ function App({ controller, options, preset }) {
     useEffect(() => {
         const init = async () => {
             await controller.sequencer.loadSamples();
-            await controller.storage.downloadSettings();
         };
         init();
     }, [controller]);

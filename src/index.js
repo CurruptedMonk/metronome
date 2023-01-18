@@ -5,13 +5,11 @@ import App from './App';
 import metronomeController from "./controller/metronomeController";
 import metronomeOptions from "./metronomeOptions";
 
-
 const controller = metronomeController(metronomeOptions);
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const preset = {};
 
 root.render(
   <React.StrictMode>
-    <App controller={controller} options={metronomeOptions} preset={preset}/>
+    <App controller={controller} options={metronomeOptions} />
   </React.StrictMode>
 );
