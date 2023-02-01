@@ -8,9 +8,7 @@ import syncWebStorage from "../services/storage/syncWebStorage";
 import localStorageAdapter from "../services/storage/localStorageAdapter";
 
 const metronomeController = (metronomeOptions) => {
-    const storage = syncWebStorage(localStorageAdapter());
-    const preset = presetUseCases( {available: [], initialValue: null}, storage);
-    const metronome = metronomeUseCases(metronomeOptions, storage, preset);
+    const metronome = metronomeUseCases(metronomeOptions);
 
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const sequencer = sequencerUseCases(webAudioSequencer(audioContext, metronomeOptions.sample.list), {
@@ -28,6 +26,8 @@ const metronomeController = (metronomeOptions) => {
     {sequencer, bpm: metronome.bpm}
     );
 
+    const storage = syncWebStorage(localStorageAdapter());
+    const preset = presetUseCases(metronome, storage);
 
     return Object.freeze({
         ...metronome,

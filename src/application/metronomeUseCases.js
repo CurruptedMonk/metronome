@@ -2,18 +2,17 @@ import rangeEntityUseCases from "./rangeEntityUseCases";
 import selectableEntityUseCases from "./selectableEntityUseCases";
 
 const metronomeUseCases = (options) => {
-    const beat = rangeEntityUseCases(options.beat);
-    const bpm = rangeEntityUseCases(options.bpm);
-    const duration =  selectableEntityUseCases(false, options.duration);
-    const upbeatSample =  selectableEntityUseCases(false, options.sample.upbeat);
-    const downbeatSample = selectableEntityUseCases(false, options.sample.downbeat);
+
+    const entities = {
+        beat : rangeEntityUseCases(options.beat),
+        bpm : rangeEntityUseCases(options.bpm),
+        duration :  selectableEntityUseCases(false, options.duration),
+        upbeatSample :  selectableEntityUseCases(false, options.sample.upbeat),
+        downbeatSample : selectableEntityUseCases(false, options.sample.downbeat),
+    };
 
     return Object.freeze({
-        beat,
-        bpm,
-        duration,
-        upbeatSample,
-        downbeatSample
+        ...entities,
     });
 };
 

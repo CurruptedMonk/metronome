@@ -2,34 +2,73 @@ import selectableEntityUseCases from "./selectableEntityUseCases";
 import debounce from "../lib/debounce";
 import storageUseCases from "./storageUseCases";
 
-const presetUseCases = (options, storage) => {
+const presetUseCases = (metronome, storage) => {
     const DEBOUNCE_TIMEOUT_MS = 600;
+
     const currentPresetNameStorage = storageUseCases(storage,"current_preset_name");
-    const presetCollectionStorage = storageUseCases(storage,"preset_collection");
-    const saveCurrentPresetName = debounce(currentPresetNameStorage.save, DEBOUNCE_TIMEOUT_MS);
-    const savePresetCollection = debounce(presetCollectionStorage.save, DEBOUNCE_TIMEOUT_MS);
+    const saveCurrentPresetName = debounce(currentPresetNameStorage.save, DEBOUNCE_TIMEOUT_MS)
+
+    const presetsStorage = storageUseCases(storage,"presets");
+    const savePresets = debounce(presetsStorage.save, DEBOUNCE_TIMEOUT_MS);
+
+    const currentPresetName = {
+        value: currentPresetNameStorage.download() || null
+    };
+    if(currentPresetName.value) {
+        for (const [key, value] of Object.entries(presetsStorage.download()[currentPresetName.value])) {
+            metronome[key].set(value);
+        }
+    }
+
+    const presets = presetsStorage.download();
+    const presetNames = presets ? Object.keys(presets) : [];
 
     const preset = selectableEntityUseCases(
         true,
         {
-            available: presetCollectionStorage.download() || options.available,
-            initialValue:currentPresetNameStorage.download() || options.initialValue
+            available: presetNames,
+            initialValue:currentPresetName.value
         }
     );
 
-    preset.subscribe(Symbol(), (presetName) => saveCurrentPresetName(presetName));
-    preset.subscribeToCollection(Symbol(), (collection) => savePresetCollection(collection));
+    const metronomeState = {};
+    for (const [key, value] of Object.entries(metronome)) {
+        value.subscribe(Symbol(),
+            (val) => {
+                metronomeState[key] = val;
+                if(currentPresetName.value) {
+                    const presets = presetsStorage.download() || {};
+                    presets[currentPresetName.value] = metronomeState
+                    savePresets(presets);
+                }
+            },
+            true);
+    }
+
+    preset.subscribe(Symbol(), (newPresetName) => {
+        currentPresetName.value = newPresetName;
+        saveCurrentPresetName(newPresetName);
+    });
 
     const set = (value) => {
         preset.set(value);
+        for (const [key, val] of Object.entries(presetsStorage.download()[value])) {
+            metronome[key].set(val);
+        }
     };
 
     const add = (value) => {
         preset.add(value);
+        const presets = presetsStorage.download() || {};
+        presets[value] = metronomeState;
+        savePresets(presets);
     };
 
     const remove = (value) => {
         preset.remove(value);
+        const presets = presetsStorage.download();
+        delete presets[value];
+        savePresets(presets);
     };
 
     const has = (value) => {
